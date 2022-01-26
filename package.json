@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Nevah5/wordlebot/issues"
   },
-  "homepage": "https://github.com/Nevah5/wordlebot#readme"
+  "homepage": "https://github.com/Nevah5/wordlebot#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "nodemon": "^2.0.15"
+  }
 }
