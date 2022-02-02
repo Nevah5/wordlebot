@@ -22,6 +22,6 @@
   "homepage": "https://github.com/Nevah5/wordlebot#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
-    "nodemon": "^2.0.15"
+    "dotenv": "^15.0.0"
   }
 }
