@@ -1,3 +1,5 @@
+<br>
+<br>
 <p align="center">
   <img src="./src/images/logo_slim.png" width="150px"></img><br>
   A Discord Bot that brings wordle<br>
