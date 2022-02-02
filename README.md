@@ -23,7 +23,8 @@ For the project you need to have following things (installed):
 2. open the console in the project folder
 3. run `npm install`
 4. wait for the installation to complete
-5. replace "YOUR_TOKEN_HERE" with your token in the `.env` file
+5. rename the `.env.example` file to `.env`
+5. replace "YOUR_TOKEN_HERE" with your token in the renamed `.env` file
 6. run `node .` in the console
 
 
