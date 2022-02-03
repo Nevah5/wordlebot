@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const { Client, Intents } = require("discord.js");
+const wordle = require("./src/modules/wordle.js");
 
 const token = process.env.token;
 const prefix = process.env.prefix;
 console.log("Prefix: '" + prefix + "'");
+console.log("Word: '" + wordle.getWord() + "'");
 
 const client = new Client({
   intents: [
@@ -30,4 +32,4 @@ client.on('messageCreate', msg =>{
   msg.react('✅');
 })
 
-client.login(token);
+// client.login(token);

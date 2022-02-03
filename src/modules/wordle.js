@@ -1,7 +1,9 @@
-function getWord(userID){
-  //return a random word
+const { words } = require("./words");
+
+getWord = () => {
+  return words[Math.floor(Math.random() * (words.length - 1))];
 }
 
-module.exports = (
+module.exports = {
   getWord
-);
+};
