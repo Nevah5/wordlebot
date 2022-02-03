@@ -1,4 +1,9 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.0.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.2) - 03.02.2022
+### Added
+- Embed module with example
+- Reply user's message with example embed
+
 ## [Alpha 1.0.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.1) - 03.02.2022
 ### Added
 - Words module
