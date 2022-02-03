@@ -1,14 +1,12 @@
+/**
+ * █░█░█ █▀█ █▀█ █▀▄ █░░ █▀▀ █▄▄ █▀█ ▀█▀
+ * ▀▄▀▄▀ █▄█ █▀▄ █▄▀ █▄▄ ██▄ █▄█ █▄█ ░█░
+ */
+// --- Modules --- \\
 require("dotenv").config();
-
 const { Client, Intents } = require("discord.js");
-const wordle = require("./src/modules/wordle");
-const embeds = require("./src/modules/embeds");
 
-const token = process.env.token;
-const prefix = process.env.prefix;
-console.log("Prefix: '" + prefix + "'");
-console.log("Word: '" + wordle.getWord() + "'");
-
+// --- Discord Client --- \\
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -21,6 +19,20 @@ const client = new Client({
   ]
 });
 
+// --- Own Modules --- \\
+const wordle = require("./src/modules/wordle");
+const embeds = require("./src/modules/embeds");
+
+// --- Variables --- \\
+const token = process.env.token;
+const prefix = process.env.prefix;
+console.log("Prefix: '" + prefix + "'");
+console.log("Word: '" + wordle.getWord() + "'");
+
+// ------------------------------------------------ \\
+
+
+// --- Async Functions --- \\
 client.on('ready', _ => {
   console.log("Logged in as: "+ client.user.tag);
 });
@@ -34,4 +46,5 @@ client.on('messageCreate', msg =>{
   msg.react('✅');
 })
 
+// --- Bot Login --- \\
 client.login(token);

@@ -2,6 +2,7 @@
 ## [Alpha 1.0.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.4) - 03.02.2022
 ### Added
 - Example wordle embed
+- Comments to index.js
 
 ## [Alpha 1.0.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.3) - 03.02.2022
 ### Changed
