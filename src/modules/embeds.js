@@ -5,7 +5,10 @@ const playerGuess = (id, guess) => {
   .setTitle("Your wordle #"+id)
 	.setURL('https://www.powerlanguage.co.uk/wordle/')
   .setAuthor({ name: "Discord Wordle", iconURL: "", url: "https://github.com/nevah5/wordlebot"})
-  .addField("Your guesses:", guess, true)
+  .addFields(
+    {name: "Your guesses:", value: guess, inline: true},
+    {name: "XXXX", value: "@someone", inline: true}
+  )
   .setFooter({text: "1 guess left, guess with /guess <YOUR_GUESS>"})
   .setColor("#6AAA64");
 }
