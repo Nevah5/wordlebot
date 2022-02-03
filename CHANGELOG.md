@@ -1,5 +1,13 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.0](https://github.com/Nevah5/wordlebot/releases/tag/a1.0) - 02.02.2022
+## [Alpha 1.0.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.1) - 03.02.2022
+### Added
+- Words module
+- Get random word in wordle module
+
+### Changed
+- Title form Alpha 1.0 to Release Alpha 1.0 in CHANGELOG.md
+
+## [Release Alpha 1.0](https://github.com/Nevah5/wordlebot/releases/tag/a1.0) - 02.02.2022
 ### Added
 - Readme file with logo and installation guide
 - Changelog with first release
