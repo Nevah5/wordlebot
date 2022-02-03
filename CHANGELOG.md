@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.0.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.3) - 03.02.2022
+### Changed
+- Embed module to now accept message contents
+
 ## [Alpha 1.0.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.2) - 03.02.2022
 ### Added
 - Embed module with example

@@ -1,8 +1,10 @@
 const { MessageEmbed } = require("discord.js");
 
-const example = new MessageEmbed()
-  .setTitle('Some title')
-
+const example = (msgContent) => {
+  return new MessageEmbed()
+    .setTitle("Test")
+    .setDescription(msgContent);
+}
 module.exports = {
   example
 };
