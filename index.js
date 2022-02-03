@@ -1,7 +1,8 @@
 require("dotenv").config();
 
 const { Client, Intents } = require("discord.js");
-const wordle = require("./src/modules/wordle.js");
+const wordle = require("./src/modules/wordle");
+const embeds = require("./src/modules/embeds");
 
 const token = process.env.token;
 const prefix = process.env.prefix;
@@ -28,8 +29,9 @@ client.on('messageCreate', msg =>{
   if(msg.author.id == client.user.id) return;
   if(!msg.content.startsWith(prefix)) return;
 
+  msg.reply({content: msg.content, embeds: [embeds.example]})
   console.log(msg.author.tag + " - " + msg.content);
   msg.react('✅');
 })
 
-// client.login(token);
+client.login(token);
