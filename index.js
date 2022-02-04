@@ -26,8 +26,6 @@ const embeds = require("./src/modules/embeds");
 // --- Variables --- \\
 const token = process.env.token;
 const prefix = process.env.prefix;
-console.log("Prefix: '" + prefix + "'");
-console.log("Word: '" + wordle.getWord() + "'");
 
 // ------------------------------------------------ \\
 
@@ -39,11 +37,11 @@ client.on('ready', _ => {
 
 client.on('messageCreate', msg =>{
   if(msg.author.id == client.user.id) return;
-  if(!msg.content.startsWith(prefix)) return;
+  const command = msg.content.split(' ');
 
-  msg.reply({embeds: [embeds.playerGuess("1", "⬛⬛🟩⬛🟨\n🟨🟨⬛🟩⬛\n⬛🟨🟩⬛🟩\n🟩⬛🟨🟨🟨\n🟩🟩🟩🟨🟨")]})
-  console.log(msg.author.tag + " - " + msg.content);
-  msg.react('✅');
+  if(msg.content.startsWith(`${prefix}play`)){
+    msg.react("✅");
+  }
 })
 
 // --- Bot Login --- \\
