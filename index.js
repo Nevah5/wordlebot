@@ -29,20 +29,20 @@ const prefix = process.env.prefix;
 
 // ------------------------------------------------ \\
 
-
-// --- Async Functions --- \\
+// --- When Bot started --- \\
 client.on('ready', _ => {
   console.log("Logged in as: "+ client.user.tag);
 });
 
+// --- When someone sends message --- \\
 client.on('messageCreate', msg =>{
-  if(msg.author.id == client.user.id) return;
+  if(msg.author.id == client.user.id) return; //ignore own messages
   const command = msg.content.split(' ');
 
-  if(msg.content.startsWith(`${prefix}play`)){
-    msg.react("✅");
+  if(command[0].startsWith(`${prefix}play`)){
+    msg.channel.send({embeds: [embeds.guess("153", ["House", "Sunny", "Adieu"], ["⬛⬛🟩🟩🟩", "🟨⬛🟩🟩🟩", "🟩⬛🟩🟩🟩"], msg.author.id)]});
   }
-})
+});
 
 // --- Bot Login --- \\
 client.login(token);

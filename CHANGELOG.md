@@ -1,6 +1,9 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.5) - 04.02.2022
-### Remvoed
+## [Alpha 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.5) - 05.02.2022
+### Changed
+- Guessing embed
+
+### Removed
 - Send embed with all commands
 
 ## [Alpha 1.0.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.4) - 03.02.2022
