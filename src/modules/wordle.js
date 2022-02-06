@@ -9,7 +9,6 @@ getWord = (id) => {
 newGame = (id, interaction) => {
   if(id != null){
     // --- Test if user inputted invalid id --- \\
-    if(!/[0-9]+/.test(id)) return interaction.reply({embeds: [embeds.error("Please specify the ID as a number between 1 and "+words.length+".")], ephemeral: true});
     if(id > words.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")], ephemeral: true});
   }else{
     id = Math.floor(Math.random() * (words.length - 1));

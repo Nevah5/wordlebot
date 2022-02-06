@@ -50,8 +50,7 @@ client.on('ready', _ => {
         description: 'Wordle ID',
         required: false,
         type: "NUMBER",
-        minValue: 1,
-        maxValue: 100,
+        minValue: 1
       }
     ]
   });

@@ -5,6 +5,7 @@
 
 ### Changed
 - `./src/modules/wordle.js` new game function to work with first new command
+- New game function in wordle to work better with interaction
 
 ## [Alpha 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
 ### Added
