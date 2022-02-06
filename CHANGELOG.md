@@ -1,7 +1,25 @@
 # Changelog (Alpha Versions)
-## [Release Alpha 1.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
+## [Release Alpha 1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.3) - 06.02.2022
+### Added
+- Guild commands for testing
+- Guess command
+- Results embed
+
+### Changed
+- `./src/modules/wordle.js` new game function to work with first new command
+- New game function in wordle to work better with interaction
+- Gameboard name in embeds to results
+
+### Removed
+- Help embed
+- Message commands including prefix from `./.env.example`
+- Spoilers from guesses
+
+## [Alpha 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
 ### Added
 - Help embed
+- Comments to `./src/modules/wordle.js`
+- User rich presence
 
 ### Changed
 - New game embed

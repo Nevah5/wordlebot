@@ -16,7 +16,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   playerGuesses.forEach((guess, index) => {
     left -= 1;
     let num = index + 1;
-    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
+    guesses += num + ". " + guess.toUpperCase() + "\n";
   });
   var board = "";
   playerHistory.forEach(playerGuess => {
@@ -30,7 +30,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+(6-left)+"/6", value: board, inline: false}
+    {name: "Results "+(6-left)+"/6", value: board, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64")
@@ -40,7 +40,7 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   var guesses = "";
   playerGuesses.forEach((guess, index) => {
     let num = index + 1;
-    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
+    guesses += num + ". " + guess.toUpperCase() + "\n";
   });
   var board = "";
   playerHistory.forEach(playerGuess => {
@@ -57,9 +57,30 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
+    {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
+  .setColor("#6AAA64")
+  .setTimestamp();
+}
+const result = (id, playerHistory, player) => {
+  var board = "";
+  playerHistory.forEach(playerGuess => {
+    board += playerGuess + "\n";
+  });
+  var outOf = playerHistory.length;
+  if(!board.endsWith("🟩🟩🟩🟩🟩\n")){
+    outOf = "X";
+  }
+  return new MessageEmbed()
+  .setTitle("Wordle #"+id)
+  .setDescription("<@"+player.id+">")
+  .setThumbnail(player.avatarURL())
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .addFields(
+    {name: "Results "+outOf+"/6", value: board, inline: false}
+  )
+  .setFooter({text: "Play this wordle with /new "+id})
   .setColor("#6AAA64")
   .setTimestamp();
 }
@@ -73,25 +94,11 @@ const newGame = (id, playerID) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const help = (prefix) => {
-  return new MessageEmbed()
-  .setTitle("Help Menu")
-  .setDescription("Please support me on [GitHub](https://github.com/nevah5/wordlebot/)!\nPrefix: "+prefix)
-  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
-  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
-  .setColor("#6AAA64")
-  .addFields(
-    {name: `${prefix}new <ID (optional)>`, value: `Start a new game by typing ${prefix}new in a channel. You will get a new wordle with a random word. Each word has an ID, that curresponds to a word. If you for example want to play the same word as your friend you can use the same command with the wordle ID that your friend got. Example: ${prefix}new 531.`, inline: false},
-    {name: `${prefix}guess <guess>`, value: `When you started a new game, you can start guessing the word. Example: ${prefix}guess hello`},
-    {name: `${prefix}help`, value: "This command calls this message here."}
-  )
-  .setTimestamp();
-}
 
 module.exports = {
   error,
   guess,
   lastGuess,
   newGame,
-  help
+  result
 };
