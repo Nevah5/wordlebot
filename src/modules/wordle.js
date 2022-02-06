@@ -145,6 +145,7 @@ guess = (guess, interaction) => {
     });
     fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID))], ephemeral: true});
+    interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }
 }
 

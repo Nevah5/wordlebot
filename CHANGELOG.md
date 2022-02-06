@@ -3,6 +3,7 @@
 ### Added
 - Guild commands for testing
 - Guess command
+- Results embed
 
 ### Changed
 - `./src/modules/wordle.js` new game function to work with first new command

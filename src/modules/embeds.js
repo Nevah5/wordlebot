@@ -63,6 +63,27 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
+const result = (id, playerHistory, player) => {
+  var board = "";
+  playerHistory.forEach(playerGuess => {
+    board += playerGuess + "\n";
+  });
+  var outOf = playerHistory.length;
+  if(!board.endsWith("🟩🟩🟩🟩🟩\n")){
+    outOf = "X";
+  }
+  return new MessageEmbed()
+  .setTitle("Wordle #"+id)
+  .setDescription("<@"+player.id+">")
+  .setThumbnail(player.avatarURL())
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .addFields(
+    {name: "Results "+outOf+"/6", value: board, inline: false}
+  )
+  .setFooter({text: "Play this wordle with /new "+id})
+  .setColor("#6AAA64")
+  .setTimestamp();
+}
 const newGame = (id, playerID) => {
   return new MessageEmbed()
   .setTitle("Wordle #"+id)
@@ -78,5 +99,6 @@ module.exports = {
   error,
   guess,
   lastGuess,
-  newGame
+  newGame,
+  result
 };
