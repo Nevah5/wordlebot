@@ -90,8 +90,8 @@ guess = (guess, interaction) => {
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
   var guessesColors = [];
   var letters = {
-    "q": 1, "w": 1, "e": 1, "r": 1, "t": 1, "y": 1, "u": 1, "i": 1, "o": 0, "p": 0,
-    "a": 1, "s": 1, "d": 1, "f": 1, "g": 1, "h": 1, "j": 1, "k": 1, "l": 0,
+    "q": 1, "w": 1, "e": 1, "r": 1, "t": 1, "y": 1, "u": 1, "i": 1, "o": 1, "p": 1,
+    "a": 1, "s": 1, "d": 1, "f": 1, "g": 1, "h": 1, "j": 1, "k": 1, "l": 1,
     "z": 1, "x": 1, "c": 1, "v": 1, "b": 1, "n": 1, "m": 1
   };
   // --- Generate colors from each guess user has made --- \\

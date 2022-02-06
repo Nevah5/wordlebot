@@ -3,6 +3,9 @@
 ### Changed
 - Keyboard layout in game embeds
 
+### Fixed
+- Keyboard bug where letters not avaiable
+
 ## [Alpha 1.3.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.1) - 06.02.2022
 ### Added
 - Devlopment info and invite link to `./README.md`
