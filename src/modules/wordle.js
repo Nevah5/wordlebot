@@ -39,7 +39,7 @@ newGame = (id, msg) => {
 
 guess = (guess, msg) => {
   if(!/^[a-z]{5}$/.test(guess)) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
-  const split  = guess.split();
+  const split = guess.split("");
 
   //get users word id
   var wordID = -1;
@@ -53,6 +53,21 @@ guess = (guess, msg) => {
     }
   });
   if(wordID == -1) return msg.reply("You have to start a new game first. Type /new <id (optional)>");
+  const word = getWord(wordID);
+  var wordSplit = word.split("");
+  var guessColors = "";
+  var used = [];
+  split.forEach((element, index) => {
+    if(element == wordSplit[index]){
+      guessColors += "🟩";
+      used.push(element);
+    }else if(wordSplit.includes(element) && !used.includes(element)){
+      guessColors += "🟨";
+    }else{
+      guessColors += "⬛";
+    }
+  });
+  msg.reply({embeds: [embeds.guess(wordID, [guess], [guessColors], msg.author.id)]});
 }
 
 module.exports = {
