@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.3.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.3) - 06.02.2022
+### Added
+- Devlopment info and invite link to `./README.md`
+
 ## [Release Alpha 1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.3) - 06.02.2022
 ### Added
 - Guild commands for testing
