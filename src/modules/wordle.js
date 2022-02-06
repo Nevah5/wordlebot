@@ -84,6 +84,7 @@ guess = (guess, msg) => {
         guessColors[index] = "⬛";
       }
     });
+    guessColors[index] = chars[element] == null ? "⬛" : chars[element];
   });
   var finalColors = "";
   guessColors.forEach(element => {
@@ -107,6 +108,7 @@ guess = (guess, msg) => {
     }
   });
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  console.log(finalColors);
   msg.reply({embeds: [embeds.guess(wordID, [guess], [finalColors], msg.author.id)]});
 }
 
