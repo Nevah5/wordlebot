@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.3.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.2) - 07.02.2022
+### Changed
+- Keyboard layout in game embeds
+
 ## [Alpha 1.3.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.1) - 06.02.2022
 ### Added
 - Devlopment info and invite link to `./README.md`

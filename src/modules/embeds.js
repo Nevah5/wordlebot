@@ -16,17 +16,15 @@ const getKeyboard = (letters) => {
   var j = 0;
   for(const [key, val] of Object.entries(letters)){
     i++;
-    var lineBreak = "";
+    keyboard += val != 0 ? ":regional_indicator_"+key+": " : "⬛ ";
     if(i == 10){
       j++;
       i = 0;
-      lineBreak = "\n";
+      keyboard += "\n᲼";
     }else if(i == 9 && j == 1){
       i = 0;
-      lineBreak = "\n";
+      keyboard += "\n᲼᲼᲼";
     }
-    keyboard += val != 0 ? ":regional_indicator_"+key+": " + lineBreak : "⬛ " + lineBreak;
-    lineBreak = "";
   }
   return keyboard;
 }
