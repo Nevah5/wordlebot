@@ -1,17 +1,17 @@
-const { words } = require("./words");
+const { words, gameWords } = require("./words");
 const embeds = require("./embeds");
 const fs = require("fs");
 
 getWord = (id) => {
-  return words[id];
+  return gameWords[id];
 }
 
 newGame = (id, interaction) => {
   if(id != null){
     // --- Test if user inputted invalid id --- \\
-    if(id > words.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")], ephemeral: true});
+    if(id > gameWords.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+gameWords.length+"]")], ephemeral: true});
   }else{
-    id = Math.floor(Math.random() * (words.length - 1));
+    id = Math.floor(Math.random() * (gameWords.length - 1));
   }
   if(!fs.existsSync("./db.json")){
     fs.writeFileSync('./db.json', '{"users":[]}');
@@ -41,7 +41,7 @@ newGame = (id, interaction) => {
 guess = (guess, interaction, playNewBtn) => {
   // --- Validate guess --- \\
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
-  if(!words.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
+  if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Get the word ID from database --- \\
   var wordID = -1;

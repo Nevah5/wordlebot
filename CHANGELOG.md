@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.3.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.3) - 07.02.2022
+### Added
+- Easier and playable 5 character long words
+
 ## [Alpha 1.3.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.2) - 07.02.2022
 ### Added
 - Play again button

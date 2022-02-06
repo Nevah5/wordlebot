@@ -19,8 +19,6 @@ const client = new Client({
 
 // --- Own Modules --- \\
 const wordle = require("./src/modules/wordle");
-const words = require("./src/modules/words");
-const embeds = require("./src/modules/embeds");
 
 // --- Variables --- \\
 const token = process.env.token;
