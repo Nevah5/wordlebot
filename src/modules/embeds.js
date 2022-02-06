@@ -11,7 +11,7 @@ const error = (message) => {
   .setTimestamp();
 }
 const getKeyboard = (letters) => {
-  var keyboard = "";
+  var keyboard = "**~~-------------------------------------------~~**\n";
   var i = 0;
   var j = 0;
   for(const [key, val] of Object.entries(letters)){
@@ -26,6 +26,7 @@ const getKeyboard = (letters) => {
       keyboard += "\n᲼᲼᲼";
     }
   }
+  keyboard += "\n**~~-------------------------------------------~~**";
   return keyboard;
 }
 const guess = (id, playerGuesses, playerHistory, playerID, letters) => {
@@ -50,7 +51,7 @@ const guess = (id, playerGuesses, playerHistory, playerID, letters) => {
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
     {name: "Results "+(6-left)+"/6", value: board, inline: false},
-    {name: "Letters left", value: keyboard, inline: false}
+    {name: "Possible letters:", value: keyboard, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64")
@@ -79,7 +80,7 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word, letters) =>
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
     {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false},
-    {name: "Letters left", value: keyboard, inline: false}
+    {name: "Possible letters:", value: keyboard, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
   .setColor("#6AAA64")
