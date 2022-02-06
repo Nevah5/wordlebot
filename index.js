@@ -30,6 +30,11 @@ const prefix = process.env.prefix;
 // --- When Bot started --- \\
 client.on('ready', _ => {
   console.log("Logged in as: "+ client.user.tag);
+
+  // --- Set rich presence --- \\
+  client.user.setActivity("Wordle on Discord", {
+    type: "PLAYING"
+  });
 });
 
 // --- When someone sends message --- \\
