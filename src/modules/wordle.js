@@ -39,7 +39,6 @@ newGame = (id, msg) => {
 
 guess = (guess, msg) => {
   if(!/^[a-z]{5}$/.test(guess)) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
-  const split = guess.split("");
 
   //get users word id
   var wordID = -1;
@@ -55,44 +54,12 @@ guess = (guess, msg) => {
   if(wordID == -1) return msg.reply("You have to start a new game first. Type /new <id (optional)>");
   const word = getWord(wordID);
   var wordSplit = word.split("");
-  var chars = {};
-  wordSplit.forEach(element => {
-    if(chars[element] == null){
-      chars[element] = 1;
-    }else{
-      chars[element] += 1;
-    }
-  });
-  var guessColors = [];
-  split.forEach((element, index) => {
-    //search for right input characters 🟩
-    split.forEach((element2, index2) => {
-      if(wordSplit[index2] == element2 && chars[element2] != 0){
-        guessColors[index2] = "🟩";
-        chars[element2] -= 1;
-      }
-    });
-    //search for right character but wrong position 🟨
-    split.forEach((element2, index2) => {
-      if(wordSplit.includes(element2) && chars[element2] != 0){
-        guessColors[index2] = "🟨";
-      }
-    });
-    //replace all other wrong chars with ⬛
-    guessColors.forEach((element2, index2) => {
-      if(guessColors[index] == null){
-        guessColors[index] = "⬛";
-      }
-    });
-    guessColors[index] = chars[element] == null ? "⬛" : chars[element];
-  });
-  var finalColors = "";
-  guessColors.forEach(element => {
-    finalColors += element;
-  });
+
+  // --- Check each guess --- \\
   var file = fs.readFileSync('./db.json');
   var db = JSON.parse(file);
   var newDB = {"users": []};
+  var guesses = [];
   db.users.forEach(element => {
     for(const [key, val] of Object.entries(element)){
       if(key == msg.author.id){
@@ -101,6 +68,7 @@ guess = (guess, msg) => {
         }else{
           val.guesses.push(guess);
         }
+        guesses = val.guesses;
         newDB.users.push({[msg.author.id]: {"id": wordID, "guesses": val.guesses}});
       }else{
         newDB.users.push({[key]: val});
@@ -108,8 +76,49 @@ guess = (guess, msg) => {
     }
   });
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
-  console.log(finalColors);
-  msg.reply({embeds: [embeds.guess(wordID, [guess], [finalColors], msg.author.id)]});
+  var guessesColors = [];
+  guesses.forEach(eachGuess => {
+    const split = eachGuess.split("");
+    var chars = {};
+    wordSplit.forEach(element => {
+      if(chars[element] == null){
+        chars[element] = 1;
+      }else{
+        chars[element] += 1;
+      }
+    });
+    var guessColors = [];
+    split.forEach((element, index) => {
+      //search for right input characters 🟩
+      split.forEach((element2, index2) => {
+        if(wordSplit[index2] == element2 && chars[element2] != 0){
+          guessColors[index2] = "🟩";
+          chars[element2] -= 1;
+        }
+      });
+      //search for right character but wrong position 🟨
+      split.forEach((element2, index2) => {
+        if(wordSplit.includes(element2) && chars[element2] != 0){
+          guessColors[index2] = "🟨";
+        }
+      });
+      //replace all other wrong chars with ⬛
+      guessColors.forEach((element2, index2) => {
+        if(guessColors[index] == null){
+          guessColors[index] = "⬛";
+        }
+      });
+      if(chars[element] == null){
+        guessColors[index] = "⬛";
+      }
+    });
+    var finalColors = "";
+    guessColors.forEach(element => {
+      finalColors += element;
+    });
+    guessesColors.push(finalColors);
+  });
+  msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
 }
 
 module.exports = {

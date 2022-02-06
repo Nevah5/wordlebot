@@ -1,7 +1,11 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1) - 06.02.2022
+## [Alpha 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.1) - 06.02.2022
 ### Added
 - Database integration for user guesses
+- Checking of all guesses in db history
+
+### Fixed
+- Bug where chars not in word would bug the checking code
 
 ## [Release Alpha 1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1) - 06.02.2022
 ### Added
