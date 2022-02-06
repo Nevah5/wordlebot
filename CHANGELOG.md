@@ -5,6 +5,7 @@
 
 ## Changed
 - Last guess emed to look nicer
+- User input can now be both upper- and lowercase.
 
 ## [Alpha 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.1) - 06.02.2022
 ### Added

@@ -38,7 +38,7 @@ newGame = (id, msg) => {
 }
 
 guess = (guess, msg) => {
-  if(!/^[a-z]{5}$/.test(guess)) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
+  if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
 
   //get users word id
   var wordID = -1;
@@ -82,7 +82,7 @@ guess = (guess, msg) => {
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2); //update the data with new guess
   var guessesColors = [];
   guesses.forEach(eachGuess => {
-    const split = eachGuess.split("");
+    const split = eachGuess.toLowerCase().split("");
     var chars = {};
     wordSplit.forEach(element => {
       if(chars[element] == null){
