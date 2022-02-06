@@ -125,6 +125,18 @@ guess = (guess, msg) => {
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
     msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
   }else{
+    //clear user db with all guesses
+    var file = fs.readFileSync('./db.json').toString();
+    var db = JSON.parse(file);
+    var newDB = {"users":[]};
+    db.users.forEach(element => {
+      for(const [key, val] of Object.entries(element)){
+        if(key != msg.author.id){
+          newDB.users.push({[key]: val});
+        }
+      }
+    });
+    fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
     msg.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, msg.author.id, getWord(wordID))]});
   }
 }

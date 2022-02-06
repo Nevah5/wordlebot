@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.3) - 06.02.2022
+### Added
+- Database deletion for user data after finishing game
+
 ## [Alpha 1.1.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.2) - 06.02.2022
 ## Added
 - Last guess embed
