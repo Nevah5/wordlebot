@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Release Alpha 1.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
+### Changed
+- New game embed
+
 ## [Release Alpha 1.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.2) - 06.02.2022
 ### Added
 - Error message embed
