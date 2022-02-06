@@ -73,25 +73,10 @@ const newGame = (id, playerID) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const help = (prefix) => {
-  return new MessageEmbed()
-  .setTitle("Help Menu")
-  .setDescription("Please support me on [GitHub](https://github.com/nevah5/wordlebot/)!\nPrefix: "+prefix)
-  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
-  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
-  .setColor("#6AAA64")
-  .addFields(
-    {name: `${prefix}new <ID (optional)>`, value: `Start a new game by typing ${prefix}new in a channel. You will get a new wordle with a random word. Each word has an ID, that curresponds to a word. If you for example want to play the same word as your friend you can use the same command with the wordle ID that your friend got. Example: ${prefix}new 531.`, inline: false},
-    {name: `${prefix}guess <guess>`, value: `When you started a new game, you can start guessing the word. Example: ${prefix}guess hello`},
-    {name: `${prefix}help`, value: "This command calls this message here."}
-  )
-  .setTimestamp();
-}
 
 module.exports = {
   error,
   guess,
   lastGuess,
-  newGame,
-  help
+  newGame
 };
