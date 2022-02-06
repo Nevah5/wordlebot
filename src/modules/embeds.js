@@ -25,6 +25,33 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64");
 }
+const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
+  var guesses = "";
+  playerGuesses.forEach((guess, index) => {
+    let num = index + 1;
+    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
+  });
+  var board = "";
+  playerHistory.forEach(playerGuess => {
+    board += playerGuess + "\n";
+  });
+  var footerText = "You didn't make it. The word was: ||"+word+"||.";
+  if(board.endsWith("🟩🟩🟩🟩🟩\n")){
+    footerText = "Congratulations! You made it!";
+  }
+  return new MessageEmbed()
+  .setTitle("Wordle #"+id)
+  .setDescription("<@"+playerID+">")
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .addFields(
+    {name: "Your guesses:", value: guesses, inline: false},
+    {name: "Gameboard "+playerHistory.length+"/6", value: board, inline: false}
+  )
+  .setFooter({text: footerText})
+  .setColor("#6AAA64");
+}
+
 const newGame = (id, playerID) => {
   return new MessageEmbed()
   .setTitle("Wordle #"+id)
@@ -40,5 +67,6 @@ const newGame = (id, playerID) => {
 
 module.exports = {
   guess,
+  lastGuess,
   newGame
 };

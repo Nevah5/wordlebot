@@ -60,12 +60,16 @@ guess = (guess, msg) => {
   var db = JSON.parse(file);
   var newDB = {"users": []};
   var guesses = [];
-  db.users.forEach(element => {
+  var lastGuess = false;
+  db.users.forEach(element => { //get the user's data
     for(const [key, val] of Object.entries(element)){
       if(key == msg.author.id){
         if(val.guesses == null){
           val.guesses = [guess];
         }else{
+          if(val.guesses.length == 5){
+            lastGuess = true;
+          }
           val.guesses.push(guess);
         }
         guesses = val.guesses;
@@ -75,7 +79,7 @@ guess = (guess, msg) => {
       }
     }
   });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2); //update the data with new guess
   var guessesColors = [];
   guesses.forEach(eachGuess => {
     const split = eachGuess.split("");
@@ -118,7 +122,11 @@ guess = (guess, msg) => {
     });
     guessesColors.push(finalColors);
   });
-  msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
+  if(!lastGuess){
+    msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
+  }else{
+    msg.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, msg.author.id, getWord(wordID))]});
+  }
 }
 
 module.exports = {
