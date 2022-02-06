@@ -25,6 +25,20 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64");
 }
+const newGame = (id, playerID) => {
+  return new MessageEmbed()
+  .setTitle("Wordle #"+id)
+  .setDescription("<@"+playerID+">")
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .addFields(
+    {name: "Gameboard 0/6:", value: "🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦", inline: false}
+  )
+  .setFooter({text: "6 guesses left, guess with /guess <guess>"})
+  .setColor("#6AAA64");
+}
+
 module.exports = {
-  guess
+  guess,
+  newGame
 };

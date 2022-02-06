@@ -1,4 +1,5 @@
 const { words } = require("./words");
+const embeds = require("./embeds");
 const fs = require("fs");
 
 getWord = (id = Math.floor(Math.random() * (words.length - 1))) => {
@@ -35,6 +36,7 @@ newGame = (id, msg) => {
     newDB.users.push({[msg.author.id]: {"id": id}});
   }
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  msg.reply({embeds: [embeds.newGame(id, msg.author.id)]});
 }
 
 module.exports = {

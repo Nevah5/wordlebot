@@ -3,6 +3,7 @@
 ### Added
 - New game function in wordle module WIP
 - Save new game to db
+- New game embed
 
 ## [Alpha 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.5) - 05.02.2022
 ### Changed
