@@ -38,10 +38,10 @@ newGame = (id, interaction) => {
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
-guess = (guess, msg) => {
+guess = (guess, interaction) => {
   // --- Validate guess --- \\
-  if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")]});
-  if(!words.includes(guess)) return msg.reply({embeds: [embeds.error("Please guess a valid word.")]});
+  if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
+  if(!words.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Get the word ID from database --- \\
   var wordID = -1;
@@ -49,12 +49,12 @@ guess = (guess, msg) => {
   var db = JSON.parse(file);
   db.users.forEach(element => {
     for(const [key, val] of Object.entries(element)){
-      if(key == msg.author.id){
+      if(key == interaction.user.id){
         wordID = val.id;
       }
     }
   });
-  if(wordID == -1) return msg.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")]});
+  if(wordID == -1) return interaction.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")], ephemeral: true});
   // --- Split the word into array --- \\
   const word = getWord(wordID);
   var wordSplit = word.split("");
@@ -68,7 +68,7 @@ guess = (guess, msg) => {
   // --- Update DB with new guess --- \\
   db.users.forEach(element => {
     for(const [key, val] of Object.entries(element)){
-      if(key == msg.author.id){
+      if(key == interaction.user.id){
         if(val.guesses == null){
           val.guesses = [guess];
         }else{
@@ -78,7 +78,7 @@ guess = (guess, msg) => {
           val.guesses.push(guess);
         }
         guesses = val.guesses;
-        newDB.users.push({[msg.author.id]: {"id": wordID, "guesses": val.guesses}});
+        newDB.users.push({[interaction.user.id]: {"id": wordID, "guesses": val.guesses}});
       }else{
         newDB.users.push({[key]: val});
       }
@@ -130,7 +130,7 @@ guess = (guess, msg) => {
   });
   // --- Check if user guessed and send curresponding embed --- \\
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
-    msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
+    interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id)], ephemeral: true});
   }else{
     // --- Clear user's data from DB --- \\
     var file = fs.readFileSync('./db.json').toString();
@@ -138,13 +138,13 @@ guess = (guess, msg) => {
     var newDB = {"users":[]};
     db.users.forEach(element => {
       for(const [key, val] of Object.entries(element)){
-        if(key != msg.author.id){
+        if(key != interaction.user.id){
           newDB.users.push({[key]: val});
         }
       }
     });
     fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
-    msg.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, msg.author.id, getWord(wordID))]});
+    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID))], ephemeral: true});
   }
 }
 

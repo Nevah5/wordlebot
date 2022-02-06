@@ -2,6 +2,7 @@
 ## [Release Alpha 1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
 ### Added
 - Guild commands for testing
+- Guess command
 
 ### Changed
 - `./src/modules/wordle.js` new game function to work with first new command

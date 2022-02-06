@@ -54,6 +54,18 @@ client.on('ready', _ => {
       }
     ]
   });
+  commands.create({
+    name: 'guess',
+    description: 'Guess a word on your current game.',
+    options: [
+      {
+        name: 'word',
+        description: 'Guess a 5 character long word.',
+        required: true,
+        type: "STRING"
+      }
+    ]
+  });
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -64,6 +76,9 @@ client.on('interactionCreate', async (interaction) => {
   if(commandName === 'new'){
     let id = options.getNumber('id');
     wordle.newGame(id, interaction);
+  }else if(commandName === 'guess'){
+    let guess = options.getString('word');
+    wordle.guess(guess, interaction);
   }
 })
 
