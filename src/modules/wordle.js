@@ -17,6 +17,24 @@ newGame = (id, msg) => {
   if(!fs.existsSync("./db.json")){
     fs.writeFileSync('./db.json', '{"users":[]}');
   }
+  const file = fs.readFileSync('./db.json').toString();
+  var db = JSON.parse(file);
+  var found = false;
+  var newDB = {"users":[]};
+  db.users.forEach(element => {
+    for(var [key, val] of Object.entries(element)){
+      if(key == msg.author.id){
+        newDB.users.push({[key]: {"id": id}});
+        found = true;
+      }else{
+        newDB.users.push({[key]: val});
+      }
+    }
+  });
+  if(!found){
+    newDB.users.push({[msg.author.id]: {"id": id}});
+  }
+  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
 }
 
 module.exports = {

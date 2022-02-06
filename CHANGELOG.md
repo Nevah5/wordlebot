@@ -2,6 +2,7 @@
 ## [Alpha 1.0.6](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.6) - 06.02.2022
 ### Added
 - New game function in wordle module WIP
+- Save new game to db
 
 ## [Alpha 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.5) - 05.02.2022
 ### Changed
