@@ -1,7 +1,12 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1) - 06.02.2022
+### Added
+- Database integration for user guesses
+
 ## [Release Alpha 1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1) - 06.02.2022
 ### Added
 - User can guess first guess now
+- Input character check validation for wordle colors
 
 ### Changed
 - User doesn't have to specify wordle id

@@ -43,8 +43,8 @@ guess = (guess, msg) => {
 
   //get users word id
   var wordID = -1;
-  const file = fs.readFileSync('db.json');
-  const db = JSON.parse(file);
+  var file = fs.readFileSync('db.json');
+  var db = JSON.parse(file);
   db.users.forEach(element => {
     for(const [key, val] of Object.entries(element)){
       if(key == msg.author.id){
@@ -89,6 +89,24 @@ guess = (guess, msg) => {
   guessColors.forEach(element => {
     finalColors += element;
   });
+  var file = fs.readFileSync('./db.json');
+  var db = JSON.parse(file);
+  var newDB = {"users": []};
+  db.users.forEach(element => {
+    for(const [key, val] of Object.entries(element)){
+      if(key == msg.author.id){
+        if(val.guesses == null){
+          val.guesses = [guess];
+        }else{
+          val.guesses.push(guess);
+        }
+        newDB.users.push({[msg.author.id]: {"id": wordID, "guesses": val.guesses}});
+      }else{
+        newDB.users.push({[key]: val});
+      }
+    }
+  });
+  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
   msg.reply({embeds: [embeds.guess(wordID, [guess], [finalColors], msg.author.id)]});
 }
 
