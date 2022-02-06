@@ -43,6 +43,8 @@ client.on('messageCreate', msg =>{
     msg.channel.send({embeds: [embeds.guess("153", ["House", "Sunny", "Adieu"], ["⬛⬛🟩🟩🟩", "🟨⬛🟩🟩🟩", "🟩⬛🟩🟩🟩"], msg.author.id)]});
   }else if(command[0].startsWith(`${prefix}new`)){
     wordle.newGame(command[1], msg);
+  }else if(command[0].startsWith(`${prefix}guess`)){
+    wordle.guess(command[1], msg);
   }
 });
 

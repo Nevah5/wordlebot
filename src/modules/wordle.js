@@ -39,6 +39,25 @@ newGame = (id, msg) => {
   msg.reply({embeds: [embeds.newGame(id, msg.author.id)]});
 }
 
+guess = (guess, msg) => {
+  if(!/^[a-z]{5}$/.test(guess)) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
+  const split  = guess.split();
+
+  //get users word id
+  var wordID = -1;
+  const file = fs.readFileSync('db.json');
+  const db = JSON.parse(file);
+  db.users.forEach(element => {
+    for(const [key, val] of Object.entries(element)){
+      if(key == msg.author.id){
+        wordID = val.id;
+      }
+    }
+  });
+  if(wordID == -1) return msg.reply("You have to start a new game first. Type /new <id (optional)>");
+}
+
 module.exports = {
-  newGame
+  newGame,
+  guess
 };
