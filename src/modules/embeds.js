@@ -10,7 +10,28 @@ const error = (message) => {
   .setColor("#CC5066")
   .setTimestamp();
 }
-const guess = (id, playerGuesses, playerHistory, playerID) => {
+const getKeyboard = (letters) => {
+  var keyboard = "";
+  var i = 0;
+  var j = 0;
+  for(const [key, val] of Object.entries(letters)){
+    i++;
+    var lineBreak = "";
+    if(i == 10){
+      j++;
+      i = 0;
+      lineBreak = "\n";
+    }else if(i == 9 && j == 1){
+      i = 0;
+      lineBreak = "\n";
+    }
+    keyboard += val != 0 ? ":regional_indicator_"+key+": " + lineBreak : "⬛ " + lineBreak;
+    lineBreak = "";
+  }
+  return keyboard;
+}
+const guess = (id, playerGuesses, playerHistory, playerID, letters) => {
+  const keyboard = getKeyboard(letters);
   var left = 6;
   var guesses = "";
   playerGuesses.forEach((guess, index) => {
@@ -30,13 +51,15 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Results "+(6-left)+"/6", value: board, inline: false}
+    {name: "Results "+(6-left)+"/6", value: board, inline: false},
+    {name: "Letters left", value: keyboard, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
+const lastGuess = (id, playerGuesses, playerHistory, playerID, word, letters) => {
+  const keyboard = getKeyboard(letters);
   var guesses = "";
   playerGuesses.forEach((guess, index) => {
     let num = index + 1;
@@ -57,7 +80,8 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
+    {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false},
+    {name: "Letters left", value: keyboard, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
   .setColor("#6AAA64")

@@ -1,8 +1,9 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.3.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.3) - 06.02.2022
+## [Alpha 1.3.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.1) - 06.02.2022
 ### Added
 - Devlopment info and invite link to `./README.md`
 - Create db if not exists when user tries to guess without starting new game
+- Keyboard to game embeds
 
 ## [Release Alpha 1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.3) - 06.02.2022
 ### Added

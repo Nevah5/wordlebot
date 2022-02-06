@@ -89,6 +89,11 @@ guess = (guess, interaction) => {
   });
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
   var guessesColors = [];
+  var letters = {
+    "q": 1, "w": 1, "e": 1, "r": 1, "t": 1, "y": 1, "u": 1, "i": 1, "o": 0, "p": 0,
+    "a": 1, "s": 1, "d": 1, "f": 1, "g": 1, "h": 1, "j": 1, "k": 1, "l": 0,
+    "z": 1, "x": 1, "c": 1, "v": 1, "b": 1, "n": 1, "m": 1
+  };
   // --- Generate colors from each guess user has made --- \\
   guesses.forEach(eachGuess => {
     const split = eachGuess.toLowerCase().split("");
@@ -122,6 +127,7 @@ guess = (guess, interaction) => {
         }
       });
       if(chars[element] == null){
+        letters[element] = 0;
         guessColors[index] = "⬛";
       }
     });
@@ -133,7 +139,7 @@ guess = (guess, interaction) => {
   });
   // --- Check if user guessed and send curresponding embed --- \\
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
-    interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id)], ephemeral: true});
+    interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
   }else{
     // --- Clear user's data from DB --- \\
     var file = fs.readFileSync('./db.json').toString();
@@ -147,7 +153,7 @@ guess = (guess, interaction) => {
       }
     });
     fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
-    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID))], ephemeral: true});
+    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }
 }
