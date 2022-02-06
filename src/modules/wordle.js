@@ -38,7 +38,7 @@ newGame = (id, interaction) => {
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
-guess = (guess, interaction) => {
+guess = (guess, interaction, playNewBtn) => {
   // --- Validate guess --- \\
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
   if(!words.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
@@ -153,7 +153,7 @@ guess = (guess, interaction) => {
       }
     });
     fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
-    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true});
+    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }
 }

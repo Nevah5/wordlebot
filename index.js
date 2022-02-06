@@ -4,7 +4,7 @@
  */
 // --- Modules --- \\
 require("dotenv").config();
-const { Client, Intents } = require("discord.js");
+const { Client, Intents, MessageActionRow, MessageButton } = require("discord.js");
 
 // --- Discord Client --- \\
 const client = new Client({
@@ -68,16 +68,27 @@ client.on('ready', _ => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  if(!interaction.isCommand) return;
+  if(interaction.isCommand()) {
+    const { commandName, options } = interaction;
 
-  const { commandName, options } = interaction;
-
-  if(commandName === 'new'){
-    let id = options.getNumber('id');
-    wordle.newGame(id, interaction);
-  }else if(commandName === 'guess'){
-    let guess = options.getString('word');
-    wordle.guess(guess, interaction);
+    if(commandName === 'new'){
+      let id = options.getNumber('id');
+      wordle.newGame(id, interaction);
+    }else if(commandName === 'guess'){
+      let guess = options.getString('word');
+      const playNewBtn = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+          .setCustomId('playagain')
+          .setLabel("Play Again")
+          .setStyle('SUCCESS')
+        )
+      wordle.guess(guess, interaction, playNewBtn);
+    }
+  }else if(interaction.isButton()){
+    if(interaction.customId == "playagain"){
+      wordle.newGame(null, interaction);
+    }
   }
 });
 

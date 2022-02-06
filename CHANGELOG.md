@@ -1,5 +1,8 @@
 # Changelog (Alpha Versions)
 ## [Alpha 1.3.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.2) - 07.02.2022
+### Added
+- Play again button
+
 ### Changed
 - Keyboard layout in game embeds
 - Keyboard styling in game embeds with lines on top and under
