@@ -5,6 +5,7 @@
 
 ### Changed
 - User doesn't have to specify wordle id
+- Guess embed mistakes
 
 ## [Alpha 1.0.6](https://github.com/Nevah5/wordlebot/releases/tag/a1.0.6) - 06.02.2022
 ### Added

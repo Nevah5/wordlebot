@@ -55,19 +55,41 @@ guess = (guess, msg) => {
   if(wordID == -1) return msg.reply("You have to start a new game first. Type /new <id (optional)>");
   const word = getWord(wordID);
   var wordSplit = word.split("");
-  var guessColors = "";
-  var used = [];
-  split.forEach((element, index) => {
-    if(element == wordSplit[index]){
-      guessColors += "🟩";
-      used.push(element);
-    }else if(wordSplit.includes(element) && !used.includes(element)){
-      guessColors += "🟨";
+  var chars = {};
+  wordSplit.forEach(element => {
+    if(chars[element] == null){
+      chars[element] = 1;
     }else{
-      guessColors += "⬛";
+      chars[element] += 1;
     }
   });
-  msg.reply({embeds: [embeds.guess(wordID, [guess], [guessColors], msg.author.id)]});
+  var guessColors = [];
+  split.forEach((element, index) => {
+    //search for right input characters 🟩
+    split.forEach((element2, index2) => {
+      if(wordSplit[index2] == element2 && chars[element2] != 0){
+        guessColors[index2] = "🟩";
+        chars[element2] -= 1;
+      }
+    });
+    //search for right character but wrong position 🟨
+    split.forEach((element2, index2) => {
+      if(wordSplit.includes(element2) && chars[element2] != 0){
+        guessColors[index2] = "🟨";
+      }
+    });
+    //replace all other wrong chars with ⬛
+    guessColors.forEach((element2, index2) => {
+      if(guessColors[index] == null){
+        guessColors[index] = "⬛";
+      }
+    });
+  });
+  var finalColors = "";
+  guessColors.forEach(element => {
+    finalColors += element;
+  });
+  msg.reply({embeds: [embeds.guess(wordID, [guess], [finalColors], msg.author.id)]});
 }
 
 module.exports = {
