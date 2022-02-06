@@ -45,6 +45,9 @@ guess = (guess, interaction) => {
 
   // --- Get the word ID from database --- \\
   var wordID = -1;
+  if(!fs.existsSync("./db.json")){
+    fs.writeFileSync('./db.json', '{"users":[]}');
+  }
   var file = fs.readFileSync('db.json');
   var db = JSON.parse(file);
   db.users.forEach(element => {
