@@ -39,12 +39,12 @@ client.on('messageCreate', msg =>{
   if(msg.author.id == client.user.id) return; //ignore own messages
   const command = msg.content.split(' ');
 
-  if(command[0].startsWith(`${prefix}play`)){
-    msg.channel.send({embeds: [embeds.guess("153", ["House", "Sunny", "Adieu"], ["⬛⬛🟩🟩🟩", "🟨⬛🟩🟩🟩", "🟩⬛🟩🟩🟩"], msg.author.id)]});
-  }else if(command[0].startsWith(`${prefix}new`)){
+  if(command[0].startsWith(`${prefix}new`)){
     wordle.newGame(command[1], msg);
   }else if(command[0].startsWith(`${prefix}guess`)){
     wordle.guess(command[1], msg);
+  }else if(command[0].startsWith(`${prefix}help`)){
+    msg.reply({embeds: [embeds.help(prefix)]});
   }
 });
 
