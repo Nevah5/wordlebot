@@ -35,9 +35,9 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   playerHistory.forEach(playerGuess => {
     board += playerGuess + "\n";
   });
-  var footerText = "You didn't make it. The word was: ||"+word+"||.";
+  var infoText = "**You didn't make it. The word was: ||"+word.toUpperCase()+"||.**";
   if(board.endsWith("🟩🟩🟩🟩🟩\n")){
-    footerText = "Congratulations! You made it!";
+    infoText = "**Congratulations! You made it!**";
   }
   return new MessageEmbed()
   .setTitle("Wordle #"+id)
@@ -46,9 +46,9 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+playerHistory.length+"/6", value: board, inline: false}
+    {name: "Gameboard "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
   )
-  .setFooter({text: footerText})
+  .setFooter({text: "Start a new game with /new <id (optional)>"})
   .setColor("#6AAA64");
 }
 

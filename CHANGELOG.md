@@ -3,6 +3,9 @@
 ## Added
 - Last guess embed
 
+## Changed
+- Last guess emed to look nicer
+
 ## [Alpha 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.1) - 06.02.2022
 ### Added
 - Database integration for user guesses
