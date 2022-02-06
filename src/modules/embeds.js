@@ -30,7 +30,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+(6-left)+"/6", value: board, inline: false}
+    {name: "Results "+(6-left)+"/6", value: board, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64")
@@ -57,7 +57,7 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
+    {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
   .setColor("#6AAA64")

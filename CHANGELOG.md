@@ -8,6 +8,7 @@
 ### Changed
 - `./src/modules/wordle.js` new game function to work with first new command
 - New game function in wordle to work better with interaction
+- Gameboard name in embeds to results
 
 ### Removed
 - Help embed
