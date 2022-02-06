@@ -2,18 +2,16 @@ const { words } = require("./words");
 const embeds = require("./embeds");
 const fs = require("fs");
 
-getWord = (id = Math.floor(Math.random() * (words.length - 1))) => {
+getWord = (id) => {
   return words[id];
 }
 
 newGame = (id, msg) => {
-  if(!/[0-9]+/.test(id)){
-    msg.reply("Please specify the ID as a number between 1 and "+words.length+".");
-    return;
-  }
-  if(id > words.length || id < 1){
-    msg.reply("This ID is invalid. [1-"+words.length+"]");
-    return;
+  if(id != null){
+    if(!/[0-9]+/.test(id)) return msg.reply("Please specify the ID as a number between 1 and "+words.length+".");
+    if(id > words.length || id < 1) return msg.reply("This ID is invalid. [1-"+words.length+"]");
+  }else{
+    id = Math.floor(Math.random() * (words.length - 1));
   }
   if(!fs.existsSync("./db.json")){
     fs.writeFileSync('./db.json', '{"users":[]}');
