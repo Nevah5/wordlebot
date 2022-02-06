@@ -11,6 +11,7 @@
 ### Removed
 - Help embed
 - Message commands including prefix from `./.env.example`
+- Spoilers from guesses
 
 ## [Alpha 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
 ### Added

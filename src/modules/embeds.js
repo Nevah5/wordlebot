@@ -16,7 +16,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   playerGuesses.forEach((guess, index) => {
     left -= 1;
     let num = index + 1;
-    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
+    guesses += num + ". " + guess.toUpperCase() + "\n";
   });
   var board = "";
   playerHistory.forEach(playerGuess => {
@@ -40,7 +40,7 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   var guesses = "";
   playerGuesses.forEach((guess, index) => {
     let num = index + 1;
-    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
+    guesses += num + ". " + guess.toUpperCase() + "\n";
   });
   var board = "";
   playerHistory.forEach(playerGuess => {
