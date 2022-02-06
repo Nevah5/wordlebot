@@ -8,6 +8,7 @@ getWord = (id) => {
 
 newGame = (id, msg) => {
   if(id != null){
+    // --- Test if user inputted invalid id --- \\
     if(!/[0-9]+/.test(id)) return msg.reply({embeds: [embeds.error("Please specify the ID as a number between 1 and "+words.length+".")]});
     if(id > words.length || id < 1) return msg.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")]});
   }else{
@@ -16,6 +17,7 @@ newGame = (id, msg) => {
   if(!fs.existsSync("./db.json")){
     fs.writeFileSync('./db.json', '{"users":[]}');
   }
+  // --- Save ID to database --- \\
   const file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
   var found = false;
@@ -38,10 +40,11 @@ newGame = (id, msg) => {
 }
 
 guess = (guess, msg) => {
+  // --- Validate guess --- \\
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")]});
   if(!words.includes(guess)) return msg.reply({embeds: [embeds.error("Please guess a valid word.")]});
 
-  //get users word id
+  // --- Get the word ID from database --- \\
   var wordID = -1;
   var file = fs.readFileSync('db.json');
   var db = JSON.parse(file);
@@ -53,6 +56,7 @@ guess = (guess, msg) => {
     }
   });
   if(wordID == -1) return msg.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")]});
+  // --- Split the word into array --- \\
   const word = getWord(wordID);
   var wordSplit = word.split("");
 
@@ -62,7 +66,8 @@ guess = (guess, msg) => {
   var newDB = {"users": []};
   var guesses = [];
   var lastGuess = false;
-  db.users.forEach(element => { //get the user's data
+  // --- Update DB with new guess --- \\
+  db.users.forEach(element => {
     for(const [key, val] of Object.entries(element)){
       if(key == msg.author.id){
         if(val.guesses == null){
@@ -80,8 +85,9 @@ guess = (guess, msg) => {
       }
     }
   });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2); //update the data with new guess
+  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
   var guessesColors = [];
+  // --- Generate colors from each guess user has made --- \\
   guesses.forEach(eachGuess => {
     const split = eachGuess.toLowerCase().split("");
     var chars = {};
@@ -123,10 +129,11 @@ guess = (guess, msg) => {
     });
     guessesColors.push(finalColors);
   });
+  // --- Check if user guessed and send curresponding embed --- \\
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
     msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
   }else{
-    //clear user db with all guesses
+    // --- Clear user's data from DB --- \\
     var file = fs.readFileSync('./db.json').toString();
     var db = JSON.parse(file);
     var newDB = {"users":[]};
