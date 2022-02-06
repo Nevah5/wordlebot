@@ -1,5 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 
+const error = (message) => {
+  return new MessageEmbed()
+  .setTitle("Something went wrong!")
+  .setDescription(message)
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setFooter({text: "For more information, type /help."})
+  .setColor("#CC5066");
+}
+
 const guess = (id, playerGuesses, playerHistory, playerID) => {
   var left = 6;
   var guesses = "";
@@ -66,6 +76,7 @@ const newGame = (id, playerID) => {
 }
 
 module.exports = {
+  error,
   guess,
   lastGuess,
   newGame

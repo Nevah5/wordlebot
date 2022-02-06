@@ -8,8 +8,8 @@ getWord = (id) => {
 
 newGame = (id, msg) => {
   if(id != null){
-    if(!/[0-9]+/.test(id)) return msg.reply("Please specify the ID as a number between 1 and "+words.length+".");
-    if(id > words.length || id < 1) return msg.reply("This ID is invalid. [1-"+words.length+"]");
+    if(!/[0-9]+/.test(id)) return msg.reply({embeds: [embeds.error("Please specify the ID as a number between 1 and "+words.length+".")]});
+    if(id > words.length || id < 1) return msg.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")]});
   }else{
     id = Math.floor(Math.random() * (words.length - 1));
   }
@@ -38,8 +38,8 @@ newGame = (id, msg) => {
 }
 
 guess = (guess, msg) => {
-  if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
-  if(!words.includes(guess)) return msg.reply("Please guess a valid word.");
+  if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")]});
+  if(!words.includes(guess)) return msg.reply({embeds: [embeds.error("Please guess a valid word.")]});
 
   //get users word id
   var wordID = -1;
@@ -52,7 +52,7 @@ guess = (guess, msg) => {
       }
     }
   });
-  if(wordID == -1) return msg.reply("You have to start a new game first. Type /new <id (optional)>");
+  if(wordID == -1) return msg.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")]});
   const word = getWord(wordID);
   var wordSplit = word.split("");
 
