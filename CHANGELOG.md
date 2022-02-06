@@ -2,6 +2,7 @@
 ## [Alpha 1.1.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.2) - 06.02.2022
 ## Added
 - Last guess embed
+- Test if user has guessed right to send last guess embed
 
 ## Changed
 - Last guess emed to look nicer

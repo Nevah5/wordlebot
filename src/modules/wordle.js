@@ -122,7 +122,7 @@ guess = (guess, msg) => {
     });
     guessesColors.push(finalColors);
   });
-  if(!lastGuess){
+  if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
     msg.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, msg.author.id)]});
   }else{
     msg.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, msg.author.id, getWord(wordID))]});
