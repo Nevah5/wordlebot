@@ -6,11 +6,11 @@ getWord = (id) => {
   return words[id];
 }
 
-newGame = (id, msg) => {
+newGame = (id, interaction) => {
   if(id != null){
     // --- Test if user inputted invalid id --- \\
-    if(!/[0-9]+/.test(id)) return msg.reply({embeds: [embeds.error("Please specify the ID as a number between 1 and "+words.length+".")]});
-    if(id > words.length || id < 1) return msg.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")]});
+    if(!/[0-9]+/.test(id)) return interaction.reply({embeds: [embeds.error("Please specify the ID as a number between 1 and "+words.length+".")], ephemeral: true});
+    if(id > words.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+words.length+"]")], ephemeral: true});
   }else{
     id = Math.floor(Math.random() * (words.length - 1));
   }
@@ -24,7 +24,7 @@ newGame = (id, msg) => {
   var newDB = {"users":[]};
   db.users.forEach(element => {
     for(var [key, val] of Object.entries(element)){
-      if(key == msg.author.id){
+      if(key == interaction.user.id){
         newDB.users.push({[key]: {"id": id}});
         found = true;
       }else{
@@ -33,10 +33,10 @@ newGame = (id, msg) => {
     }
   });
   if(!found){
-    newDB.users.push({[msg.author.id]: {"id": id}});
+    newDB.users.push({[interaction.user.id]: {"id": id}});
   }
   fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
-  msg.reply({embeds: [embeds.newGame(id, msg.author.id)]});
+  interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
 guess = (guess, msg) => {
