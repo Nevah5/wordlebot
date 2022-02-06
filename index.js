@@ -24,7 +24,6 @@ const embeds = require("./src/modules/embeds");
 
 // --- Variables --- \\
 const token = process.env.token;
-const prefix = process.env.prefix;
 
 // ------------------------------------------------ \\
 
@@ -79,20 +78,6 @@ client.on('interactionCreate', async (interaction) => {
   }else if(commandName === 'guess'){
     let guess = options.getString('word');
     wordle.guess(guess, interaction);
-  }
-})
-
-// --- When someone sends message --- \\
-client.on('messageCreate', msg =>{
-  if(msg.author.id == client.user.id) return; //ignore own messages
-  const command = msg.content.split(' ');
-
-  if(command[0].startsWith(`${prefix}new`)){
-    wordle.newGame(command[1], msg);
-  }else if(command[0].startsWith(`${prefix}guess`)){
-    wordle.guess(command[1], msg);
-  }else if(command[0].startsWith(`${prefix}help`)){
-    msg.reply({embeds: [embeds.help(prefix)]});
   }
 });
 

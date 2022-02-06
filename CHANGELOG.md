@@ -10,6 +10,7 @@
 
 ### Removed
 - Help embed
+- Message commands including prefix from `./.env.example`
 
 ## [Alpha 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.2.1) - 06.02.2022
 ### Added
