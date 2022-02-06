@@ -6,7 +6,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   playerGuesses.forEach((guess, index) => {
     left -= 1;
     let num = index + 1;
-    guesses += num + ". " + guess + "\n";
+    guesses += num + ". ||" + guess.toUpperCase() + "||\n";
   });
   var board = "";
   playerHistory.forEach(playerGuess => {
@@ -20,7 +20,7 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
     {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Gameboard "+left+"/6", value: board, inline: false}
+    {name: "Gameboard "+(6-left)+"/6", value: board, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64");
