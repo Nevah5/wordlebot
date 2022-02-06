@@ -7,7 +7,8 @@ const error = (message) => {
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
   .setFooter({text: "For more information, type /help."})
-  .setColor("#CC5066");
+  .setColor("#CC5066")
+  .setTimestamp();
 }
 
 const guess = (id, playerGuesses, playerHistory, playerID) => {
@@ -33,7 +34,8 @@ const guess = (id, playerGuesses, playerHistory, playerID) => {
     {name: "Gameboard "+(6-left)+"/6", value: board, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
-  .setColor("#6AAA64");
+  .setColor("#6AAA64")
+  .setTimestamp();
 }
 const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
   var guesses = "";
@@ -59,7 +61,8 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word) => {
     {name: "Gameboard "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
-  .setColor("#6AAA64");
+  .setColor("#6AAA64")
+  .setTimestamp();
 }
 
 const newGame = (id, playerID) => {
@@ -72,7 +75,8 @@ const newGame = (id, playerID) => {
     {name: "Gameboard 0/6:", value: "🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦", inline: false}
   )
   .setFooter({text: "6 guesses left, guess with /guess <guess>"})
-  .setColor("#6AAA64");
+  .setColor("#6AAA64")
+  .setTimestamp();
 }
 
 module.exports = {
