@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Alpha 1.1.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.4) - 06.02.2022
+### Added
+- Guess word validation
+
 ## [Alpha 1.1.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.1.3) - 06.02.2022
 ### Added
 - Database deletion for user data after finishing game

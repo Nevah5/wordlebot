@@ -39,6 +39,7 @@ newGame = (id, msg) => {
 
 guess = (guess, msg) => {
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return msg.reply("This guess is invalid. [Please use 5 letter words to guess]");
+  if(!words.includes(guess)) return msg.reply("Please guess a valid word.");
 
   //get users word id
   var wordID = -1;
