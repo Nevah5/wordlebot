@@ -1,9 +1,8 @@
 const fs = require("fs");
-const image = {"games":[], "stats":[]};
 
 const checkDB = () =>{
   if(!fs.existsSync("./db.json")){
-    fs.writeFileSync('./db.json', '{"games":[], "stats":[]}');
+    fs.writeFileSync('./db.json', '{"games":[]}');
   }
 }
 const saveID = (userID, id) => {
@@ -11,7 +10,7 @@ const saveID = (userID, id) => {
   const file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
   var found = false;
-  var newDB = {"games":[], "stats":[]};
+  var newDB = {"games":[]};
   db.games.forEach(element => {
     for(var [key, val] of Object.entries(element)){
       if(key == userID){
@@ -44,7 +43,7 @@ const addGuess = (userID, guess) => { //adds guess and returns all guesses
   checkDB();
   var file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
-  var newDB = {"games":[], "stats":[]};
+  var newDB = {"games":[]};
   var guesses = [];
   var lastGuess = false;
   // --- Update DB with new guess --- \\
@@ -73,7 +72,7 @@ const clearGameData = (userID) => {
   checkDB();
   var file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
-  var newDB = {"games":[], "stats":[]};
+  var newDB = {"games":[]};
   db.games.forEach(element => {
     for(const [key, val] of Object.entries(element)){
       if(key != userID){
