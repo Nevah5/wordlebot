@@ -3,6 +3,7 @@
 ### Added
 - `./src/modules/db.js` module
 - All database interactions into db module
+- Database configs to `./.env.example`
 
 ### Changed
 - Database image
