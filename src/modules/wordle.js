@@ -10,7 +10,6 @@ newGame = (id, interaction) => {
   if(id != null){
     // --- Test if user inputted invalid id --- \\
     if(id > gameWords.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+gameWords.length+"]")], ephemeral: true});
-    id--;
   }else{
     id = Math.floor(Math.random() * (gameWords.length - 1));
   }
