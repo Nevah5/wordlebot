@@ -1,5 +1,8 @@
 # Changelog (Alpha Versions)
 ## [Release Alpha 1.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4) - 08.02.2022
+### Added
+- Mysql module and integration into db module
+
 ### Changed
 - Example environment file, replaced port with database name
 

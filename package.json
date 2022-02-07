@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Nevah5/wordlebot#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
-    "dotenv": "^15.0.0"
+    "dotenv": "^15.0.0",
+    "mysql": "^2.18.1"
   }
 }
