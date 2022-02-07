@@ -8,35 +8,14 @@ var con = mysql.createConnection({
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME
 });
+con.connect();
 
-const checkDB = () =>{
-  if(!fs.existsSync("./db.json")){
-    fs.writeFileSync('./db.json', '{"games":[]}');
-  }
-}
 const saveID = (userID, id) => {
-  checkDB();
-  const file = fs.readFileSync('./db.json').toString();
-  var db = JSON.parse(file);
-  var found = false;
-  var newDB = {"games":[]};
-  db.games.forEach(element => {
-    for(var [key, val] of Object.entries(element)){
-      if(key == userID){
-        newDB.games.push({[key]: {"id": id}});
-        found = true;
-      }else{
-        newDB.games.push({[key]: val});
-      }
-    }
-  });
-  if(!found){
-    newDB.games.push({[userID]: {"id": id}});
-  }
-  fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
+  con.query(`DELETE FROM games WHERE userID="${userID}"`);
+  con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
+  con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
 }
 const getUserGameID = (userID) => {
-  checkDB();
   var file = fs.readFileSync('db.json').toString();
   var db = JSON.parse(file);
   db.games.forEach(element => {
@@ -49,7 +28,6 @@ const getUserGameID = (userID) => {
   return wordID;
 }
 const addGuess = (userID, guess) => { //adds guess and returns all guesses
-  checkDB();
   var file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
   var newDB = {"games":[]};
@@ -77,24 +55,9 @@ const addGuess = (userID, guess) => { //adds guess and returns all guesses
   fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
   return [guesses, lastGuess];
 }
-const clearGameData = (userID) => {
-  checkDB();
-  var file = fs.readFileSync('./db.json').toString();
-  var db = JSON.parse(file);
-  var newDB = {"games":[]};
-  db.games.forEach(element => {
-    for(const [key, val] of Object.entries(element)){
-      if(key != userID){
-        newDB.games.push({[key]: val});
-      }
-    }
-  });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
-}
 
 module.exports = {
   saveID,
   getUserGameID,
-  addGuess,
-  clearGameData
+  addGuess
 }
