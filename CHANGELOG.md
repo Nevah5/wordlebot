@@ -1,9 +1,10 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.3.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.5) - 08.02.2022
+## [Alpha 1.3.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.5) - 07.02.2022
 ### Added
 - `./src/modules/db.js` module
 - All database interactions into db module
 - Database configs to `./.env.example`
+- Database image to `./image.sql`
 
 ### Changed
 - Database image
