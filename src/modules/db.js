@@ -11,7 +11,7 @@ const saveID = (userID, id) => {
   const file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
   var found = false;
-  var newDB = image;
+  var newDB = {"games":[], "stats":[]};
   db.games.forEach(element => {
     for(var [key, val] of Object.entries(element)){
       if(key == userID){
@@ -25,7 +25,7 @@ const saveID = (userID, id) => {
   if(!found){
     newDB.games.push({[userID]: {"id": id}});
   }
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
 }
 const getUserGameID = (userID) => {
   checkDB();
@@ -44,7 +44,7 @@ const addGuess = (userID, guess) => { //adds guess and returns all guesses
   checkDB();
   var file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
-  var newDB = image;
+  var newDB = {"games":[], "stats":[]};
   var guesses = [];
   var lastGuess = false;
   // --- Update DB with new guess --- \\
@@ -66,14 +66,14 @@ const addGuess = (userID, guess) => { //adds guess and returns all guesses
       }
     }
   });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
   return [guesses, lastGuess];
 }
 const clearGameData = (userID) => {
   checkDB();
   var file = fs.readFileSync('./db.json').toString();
   var db = JSON.parse(file);
-  var newDB = image;
+  var newDB = {"games":[], "stats":[]};
   db.games.forEach(element => {
     for(const [key, val] of Object.entries(element)){
       if(key != userID){
@@ -81,7 +81,7 @@ const clearGameData = (userID) => {
       }
     }
   });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  fs.writeFileSync('./db.json', JSON.stringify(newDB, null, 2));
 }
 
 module.exports = {

@@ -4,6 +4,9 @@
 - `./src/modules/db.js` module
 - All database interactions into db module
 
+### Changed
+- Database image
+
 ## [Alpha 1.3.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.4) - 07.02.2022
 ### Changed
 - Intents

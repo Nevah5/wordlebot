@@ -30,7 +30,7 @@ guess = (guess, interaction, playNewBtn) => {
   var wordSplit = word.split("");
 
   // --- Check each guess --- \\
-  var addGuess = db.addGuess(interaction.user.id, guess);
+  const addGuess = db.addGuess(interaction.user.id, guess);
   var guesses = addGuess[0];
   var lastGuess = addGuess[1];
   var guessesColors = [];
