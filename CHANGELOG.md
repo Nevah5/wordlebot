@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Release Alpha 1.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4) - 08.02.2022
+### Changed
+- Example environment file, replaced port with database name
+
 ## [Alpha 1.3.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.5) - 07.02.2022
 ### Added
 - `./src/modules/db.js` module
