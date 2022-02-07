@@ -1,6 +1,6 @@
 const { words, gameWords } = require("./words");
 const embeds = require("./embeds");
-const fs = require("fs");
+const db = require('./db.js');
 
 getWord = (id) => {
   return gameWords[id];
@@ -13,28 +13,7 @@ newGame = (id, interaction) => {
   }else{
     id = Math.floor(Math.random() * (gameWords.length - 1));
   }
-  if(!fs.existsSync("./db.json")){
-    fs.writeFileSync('./db.json', '{"users":[]}');
-  }
-  // --- Save ID to database --- \\
-  const file = fs.readFileSync('./db.json').toString();
-  var db = JSON.parse(file);
-  var found = false;
-  var newDB = {"users":[]};
-  db.users.forEach(element => {
-    for(var [key, val] of Object.entries(element)){
-      if(key == interaction.user.id){
-        newDB.users.push({[key]: {"id": id}});
-        found = true;
-      }else{
-        newDB.users.push({[key]: val});
-      }
-    }
-  });
-  if(!found){
-    newDB.users.push({[interaction.user.id]: {"id": id}});
-  }
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  db.saveID(interaction.user.id, id);
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
@@ -43,51 +22,17 @@ guess = (guess, interaction, playNewBtn) => {
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
   if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
-  // --- Get the word ID from database --- \\
-  var wordID = -1;
-  if(!fs.existsSync("./db.json")){
-    fs.writeFileSync('./db.json', '{"users":[]}');
-  }
-  var file = fs.readFileSync('db.json');
-  var db = JSON.parse(file);
-  db.users.forEach(element => {
-    for(const [key, val] of Object.entries(element)){
-      if(key == interaction.user.id){
-        wordID = val.id;
-      }
-    }
-  });
+  // --- Check if user has started game --- \\
+  var wordID = db.getUserGameID(interaction.user.id) || -1;
   if(wordID == -1) return interaction.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")], ephemeral: true});
   // --- Split the word into array --- \\
   const word = getWord(wordID);
   var wordSplit = word.split("");
 
   // --- Check each guess --- \\
-  var file = fs.readFileSync('./db.json');
-  var db = JSON.parse(file);
-  var newDB = {"users": []};
-  var guesses = [];
-  var lastGuess = false;
-  // --- Update DB with new guess --- \\
-  db.users.forEach(element => {
-    for(const [key, val] of Object.entries(element)){
-      if(key == interaction.user.id){
-        if(val.guesses == null){
-          val.guesses = [guess];
-        }else{
-          if(val.guesses.length == 5){
-            lastGuess = true;
-          }
-          val.guesses.push(guess);
-        }
-        guesses = val.guesses;
-        newDB.users.push({[interaction.user.id]: {"id": wordID, "guesses": val.guesses}});
-      }else{
-        newDB.users.push({[key]: val});
-      }
-    }
-  });
-  fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+  var addGuess = db.addGuess(interaction.user.id, guess);
+  var guesses = addGuess[0];
+  var lastGuess = addGuess[1];
   var guessesColors = [];
   var letters = {
     "q": 1, "w": 1, "e": 1, "r": 1, "t": 1, "y": 1, "u": 1, "i": 1, "o": 1, "p": 1,
@@ -141,18 +86,7 @@ guess = (guess, interaction, playNewBtn) => {
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
     interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
   }else{
-    // --- Clear user's data from DB --- \\
-    var file = fs.readFileSync('./db.json').toString();
-    var db = JSON.parse(file);
-    var newDB = {"users":[]};
-    db.users.forEach(element => {
-      for(const [key, val] of Object.entries(element)){
-        if(key != interaction.user.id){
-          newDB.users.push({[key]: val});
-        }
-      }
-    });
-    fs.writeFileSync('./db.json', JSON.stringify(newDB), null, 2);
+    db.clearGameData(interaction.user.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }
