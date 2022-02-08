@@ -1,6 +1,7 @@
 const { words, gameWords } = require("./words");
 const embeds = require("./embeds");
 const db = require('./db.js');
+const interactions = require("./interactions.js");
 
 getWord = (id) => {
   return gameWords[id];
@@ -140,7 +141,7 @@ stats = async (user, interaction) => {
   });
   winrate = Math.floor((100 / totalgames * gamesWon) * 100) / 100;
   var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay];
-  interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], ephemeral: false});
+  interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: false});
 }
 
 module.exports = {
