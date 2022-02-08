@@ -17,20 +17,20 @@ newGame = (id, interaction) => {
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
-guess = (guess, interaction, playNewBtn) => {
+guess = async (guess, interaction, playNewBtn) => {
   // --- Validate guess --- \\
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
   if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Check if user has started game --- \\
-  var wordID = db.getUserGameID(interaction.user.id) || -1;
+  var wordID = await db.getUserGameID(interaction.user.id).catch(_ => {return -1;});
   if(wordID == -1) return interaction.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")], ephemeral: true});
   // --- Split the word into array --- \\
   const word = getWord(wordID);
   var wordSplit = word.split("");
 
   // --- Check each guess --- \\
-  const addGuess = db.addGuess(interaction.user.id, guess);
+  const addGuess = await db.addGuess(interaction.user.id, guess);
   var guesses = addGuess[0];
   var lastGuess = addGuess[1];
   var guessesColors = [];

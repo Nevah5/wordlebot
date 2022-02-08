@@ -6,6 +6,7 @@
 
 ### Changed
 - Example environment file, replaced port with database name
+- JSON db to mysql database
 
 ## [Alpha 1.3.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.3.5) - 07.02.2022
 ### Added
