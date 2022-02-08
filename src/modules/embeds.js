@@ -125,19 +125,27 @@ const stats = (id, avatarURL, username, data) => {
    * data[3] -> Winrate
    * data[4] -> Guess Color display graph
    */
+  var gameStats = "🟩 - " + data[0] + " Games started - 🟩\n";
+  gameStats += "The amount of games the user has started.\n\n";
+  gameStats += "🟩 - " + data[1] + " Games won - 🟩\n";
+  gameStats += "The amount of games the user has guessed the word.\n\n";
+  gameStats += "🟩 - " + data[2] + " Games finished - 🟩\n";
+  gameStats += "The amount of games the user has finished, either won or lost.\n\n";
+  gameStats += "🟩 - " + data[3] + "% Winrate - 🟩\n";
+  gameStats += "The winrate is calculated by the amount of games started, divided by the amount of games won.\n";
   return new MessageEmbed()
   .setTitle(username+"'s Statistics")
   .setDescription("<@"+id+">\n\n**LIFETIME STATISTICS**")
   .setThumbnail(avatarURL)
   .addFields(
     {
-      name: "/ - Games - \\",
-      value: data[0]+" Games started\n"+data[1]+" Games won\n"+data[2]+" Games finished\n\n"+data[3]+" Winrate",
+      name: "/ ------ **GAMES** ------ \\",
+      value: gameStats,
       inline: false
     },
     {
-      name: "/ - Guesses (finished games) - \\",
-      value: data[4],
+      name: "/ ------ **GUESSES** ------ \\",
+      value: data[4] + "\nThe stats from all games the user has finished.",
       inline: false
     }
   )

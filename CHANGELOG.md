@@ -5,6 +5,7 @@
 - Save stats into db
 - Statistic example embed and data analasys from database
 - Graph display for guesses in stats embed
+- Descriptions to stats embed
 
 ### Fixed
 - Bugs

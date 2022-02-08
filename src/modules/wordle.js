@@ -137,7 +137,7 @@ stats = async (user, interaction) => {
     guessStatsDisplay += " " + winrate + "%";
     guessStatsDisplay += "\n";
   });
-  winrate = 100 / totalgames * gamesWon;
+  winrate = Math.floor((100 / totalgames * gamesWon) * 100) / 100;
   var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay];
   interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], ephemeral: false});
 }
