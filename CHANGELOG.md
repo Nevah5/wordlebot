@@ -1,4 +1,8 @@
 # Changelog (Alpha Versions)
+## [Release Alpha 1.4.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.2) - 09.02.2022
+### Fixed
+- Slash command bug on /stat when giving no user
+
 ## [Release Alpha 1.4.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.1) - 08.02.2022
 ### Added
 - Promise to saveid db function

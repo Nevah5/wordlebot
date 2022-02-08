@@ -94,7 +94,7 @@ client.on('interactionCreate', async (interaction) => {
       wordle.guess(guess, interaction, playNewBtn);
     }else if(commandName === 'stats'){
       let user = options.getUser('user');
-      wordle.stats(user, interaction, user.username);
+      wordle.stats(user, interaction);
     }
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){
