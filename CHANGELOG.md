@@ -3,6 +3,7 @@
 ### Added
 - Promise to saveid db function
 - Save stats into db
+- Statistic example embed and data analasys from database
 
 ### Fixed
 - Bugs

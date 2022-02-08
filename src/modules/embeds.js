@@ -117,11 +117,34 @@ const newGame = (id, playerID) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
+const stats = async (id, avatarURL, username, data) => {
+  return new MessageEmbed()
+  .setTitle(username+"'s Statistics")
+  .setDescription("<@"+id+">\n\n**LIFETIME STATISTICS**")
+  .setThumbnail(avatarURL)
+  .addFields(
+    {
+      name: "/ - Games - \\",
+      value: "50 Games started\n24 Games won\n35 Games finished\n\n35% Winrate",
+      inline: false
+    },
+    {
+      name: "/ - Guesses (finished games) - \\",
+      value: "1️⃣⬛ 2%\n2️⃣🟨 5%\n3️⃣🟩🟩⬛ 24%\n4️⃣🟩🟩🟨 25%\n5️⃣🟩🟩🟩 30%\n6️⃣🟩🟩⬛ 22%\n:regional_indicator_x:🟩🟩🟩🟩🟨 48%",
+      inline: false
+    }
+  )
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setFooter({text: "See other users stats with /stats @user"})
+  .setColor("#6AAA64")
+  .setTimestamp();
+}
 
 module.exports = {
   error,
   guess,
   lastGuess,
   newGame,
-  result
+  result,
+  stats
 };

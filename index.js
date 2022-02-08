@@ -61,6 +61,18 @@ client.on('ready', _ => {
       }
     ]
   });
+  commands.create({
+    name: 'stats',
+    description: 'Show the stats of a user.',
+    options: [
+      {
+        name: 'user',
+        description: 'Guess a 5 character long word.',
+        required: false,
+        type: "USER"
+      }
+    ]
+  });
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -80,6 +92,9 @@ client.on('interactionCreate', async (interaction) => {
           .setStyle('SUCCESS')
         )
       wordle.guess(guess, interaction, playNewBtn);
+    }else if(commandName === 'stats'){
+      let user = options.getUser('user');
+      wordle.stats(user, interaction, user.username);
     }
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){

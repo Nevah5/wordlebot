@@ -14,6 +14,7 @@ newGame = async (id, interaction) => {
     id = Math.floor(Math.random() * (gameWords.length - 1));
   }
   await db.saveID(interaction.user.id, id);
+  await db.saveStats(interaction.user.id, -2, true);
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
@@ -93,7 +94,33 @@ guess = async (guess, interaction, playNewBtn) => {
   }
 }
 
+stats = async (user, interaction) => {
+  if(user.bot) return interaction.reply({embeds: [embeds.error("You can not get the stats of a bot!")], ephemeral: true});
+  const data = await db.getStats(user.id).catch(_ => { return null; });
+  var totalgames = 0;
+  var totalgamesfinished = 0;
+  var tries = [0, 0, 0, 0, 0, 0, 0];
+  //put data into vars
+  data.forEach(datapacket => {
+    totalgames++;
+    totalgamesfinished += datapacket.guesses >= -1;
+    tries[0] += datapacket.guesses == 1 ? 1 : 0;
+    tries[1] += datapacket.guesses == 2 ? 1 : 0;
+    tries[2] += datapacket.guesses == 3 ? 1 : 0;
+    tries[3] += datapacket.guesses == 4 ? 1 : 0;
+    tries[4] += datapacket.guesses == 5 ? 1 : 0;
+    tries[5] += datapacket.guesses == 6 ? 1 : 0;
+    tries[6] += datapacket.guesses == -1 ? 1 : 0;
+  });
+  console.log("Total Games: "+totalgames);
+  console.log("Total Games finished: "+totalgamesfinished);
+  console.log("Total Games failed: "+tries[6]);
+  // interaction.reply({embeds: [embeds.error("This user unfortunatly doesn't have any stats yet!")], ephemeral: true});
+  // interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username)], ephemeral: false});
+}
+
 module.exports = {
   newGame,
-  guess
+  guess,
+  stats
 };

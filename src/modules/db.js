@@ -1,6 +1,5 @@
 const fs = require("fs");
 const mysql = require("mysql");
-const { lastGuess } = require("./embeds");
 require("dotenv").config();
 
 var con = mysql.createConnection({
@@ -53,11 +52,20 @@ const saveStats = (userID, numGuesses, hasFinished) => {
     resolve();
   });
 }
+const getStats = (userID) => {
+  return new Promise((resolve, reject) => {
+    con.query(`SELECT * FROM stats WHERE userID="${userID}"`, (err, results) => {
+      if(results.length == 0) return reject();
+      resolve(results);
+    });
+  });
+};
 
 module.exports = {
   saveID,
   getUserGameID,
   addGuess,
   clearGameData,
-  saveStats
+  saveStats,
+  getStats
 }
