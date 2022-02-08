@@ -6,7 +6,7 @@ getWord = (id) => {
   return gameWords[id];
 }
 
-newGame = (id, interaction) => {
+newGame = async (id, interaction) => {
   if(id != null){
     // --- Test if user inputted invalid id --- \\
     if(id > gameWords.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+gameWords.length+"]")], ephemeral: true});
@@ -23,7 +23,7 @@ guess = async (guess, interaction, playNewBtn) => {
   if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Check if user has started game --- \\
-  var wordID = await db.getUserGameID(interaction.user.id).catch(_ => {return -1;});
+  var wordID = await db.getUserGameID(interaction.user.id).catch(_ => { return -1; });
   if(wordID == -1) return interaction.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")], ephemeral: true});
   // --- Split the word into array --- \\
   const word = getWord(wordID);
@@ -87,7 +87,7 @@ guess = async (guess, interaction, playNewBtn) => {
     interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
   }else{
     await db.clearGameData(interaction.user.id);
-    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessColors.length - 1] == "🟩🟩🟩🟩🟩");
+    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessesColors.length - 1] == "🟩🟩🟩🟩🟩");
     interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }

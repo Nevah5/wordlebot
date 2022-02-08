@@ -1,6 +1,5 @@
 const fs = require("fs");
 const mysql = require("mysql");
-const { resolve } = require("path");
 const { lastGuess } = require("./embeds");
 require("dotenv").config();
 
@@ -17,12 +16,13 @@ const saveID = (userID, id) => {
     con.query(`DELETE FROM games WHERE userID="${userID}"`);
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
     con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
+    resolve();
   });
 }
 const getUserGameID = (userID) => {
   return new Promise((resolve, reject) => {
     con.query(`SELECT * FROM games WHERE userID="${userID}"`, (err, results) => {
-      if(results.length == 0) reject();
+      if(results.length == 0) return reject();
       resolve(results[0].gameID);
     });
   });
@@ -43,11 +43,14 @@ const clearGameData = (userID) => {
   return new Promise((resolve, reject) => {
     con.query(`DELETE FROM games WHERE userID="${userID}"`);
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
+    resolve();
   });
 }
 const saveStats = (userID, numGuesses, hasFinished) => {
   return new Promise((resolve, reject) => {
-    //...
+    numGuesses = !hasFinished ? -1 : numGuesses;
+    con.query(`INSERT INTO stats VALUES (null, "${userID}", ${numGuesses}, default)`);
+    resolve();
   });
 }
 

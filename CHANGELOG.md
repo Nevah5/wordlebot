@@ -2,6 +2,10 @@
 ## [Release Alpha 1.4.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.1) - 08.02.2022
 ### Added
 - Promise to saveid db function
+- Save stats into db
+
+### Fixed
+- Bugs
 
 ## [Release Alpha 1.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4) - 08.02.2022
 ### Added
