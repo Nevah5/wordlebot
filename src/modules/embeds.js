@@ -117,7 +117,14 @@ const newGame = (id, playerID) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const stats = async (id, avatarURL, username, data) => {
+const stats = (id, avatarURL, username, data) => {
+  /**
+   * data[0] -> Games started
+   * data[1] -> Games won
+   * data[2] -> Games finished
+   * data[3] -> Winrate
+   * data[4] -> Guess Color display graph
+   */
   return new MessageEmbed()
   .setTitle(username+"'s Statistics")
   .setDescription("<@"+id+">\n\n**LIFETIME STATISTICS**")
@@ -125,12 +132,12 @@ const stats = async (id, avatarURL, username, data) => {
   .addFields(
     {
       name: "/ - Games - \\",
-      value: "50 Games started\n24 Games won\n35 Games finished\n\n35% Winrate",
+      value: data[0]+" Games started\n"+data[1]+" Games won\n"+data[2]+" Games finished\n\n"+data[3]+" Winrate",
       inline: false
     },
     {
       name: "/ - Guesses (finished games) - \\",
-      value: "1️⃣⬛ 2%\n2️⃣🟨 5%\n3️⃣🟩🟩⬛ 24%\n4️⃣🟩🟩🟨 25%\n5️⃣🟩🟩🟩 30%\n6️⃣🟩🟩⬛ 22%\n:regional_indicator_x:🟩🟩🟩🟩🟨 48%",
+      value: data[4],
       inline: false
     }
   )

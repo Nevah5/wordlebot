@@ -97,13 +97,16 @@ guess = async (guess, interaction, playNewBtn) => {
 stats = async (user, interaction) => {
   if(user.bot) return interaction.reply({embeds: [embeds.error("You can not get the stats of a bot!")], ephemeral: true});
   const data = await db.getStats(user.id).catch(_ => { return null; });
+  if(!data) return interaction.reply({embeds: [embeds.error("This user unfortunatly doesn't have any stats yet!")], ephemeral: true});
   var totalgames = 0;
   var totalgamesfinished = 0;
+  var gamesWon = 0;
   var tries = [0, 0, 0, 0, 0, 0, 0];
   //put data into vars
   data.forEach(datapacket => {
     totalgames++;
     totalgamesfinished += datapacket.guesses >= -1;
+    gamesWon += datapacket.guesses >= 0;
     tries[0] += datapacket.guesses == 1 ? 1 : 0;
     tries[1] += datapacket.guesses == 2 ? 1 : 0;
     tries[2] += datapacket.guesses == 3 ? 1 : 0;
@@ -112,11 +115,31 @@ stats = async (user, interaction) => {
     tries[5] += datapacket.guesses == 6 ? 1 : 0;
     tries[6] += datapacket.guesses == -1 ? 1 : 0;
   });
-  console.log("Total Games: "+totalgames);
-  console.log("Total Games finished: "+totalgamesfinished);
-  console.log("Total Games failed: "+tries[6]);
-  // interaction.reply({embeds: [embeds.error("This user unfortunatly doesn't have any stats yet!")], ephemeral: true});
-  // interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username)], ephemeral: false});
+  //generate guesses statistics
+  var guessStatsDisplay = "";
+  var guessStatsDisplayNums = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣","6️⃣", ":regional_indicator_x:"]
+  var colorsStatsDisplay = ["🟩", "🟨", "⬛"];
+  var valuesColorStatsDisplay = [10, 7, 4];
+  tries.forEach((trie, index) => {
+    var winrate = Math.floor((100 / totalgamesfinished * trie) * 100) / 100;
+    if(winrate == Infinity){
+      winrate = 0;
+    }
+    guessStatsDisplay += guessStatsDisplayNums[index];
+    var leftWinrate = winrate;
+    colorsStatsDisplay.forEach((element, index) => {
+      const mult = Math.floor(leftWinrate / valuesColorStatsDisplay[index]);
+      leftWinrate -= mult * valuesColorStatsDisplay[index];
+      for(i = 0; i < mult; i++){
+        guessStatsDisplay += element;
+      }
+    });
+    guessStatsDisplay += " " + winrate + "%";
+    guessStatsDisplay += "\n";
+  });
+  winrate = 100 / totalgames * gamesWon;
+  var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay];
+  interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], ephemeral: false});
 }
 
 module.exports = {

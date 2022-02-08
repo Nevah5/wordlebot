@@ -4,6 +4,7 @@
 - Promise to saveid db function
 - Save stats into db
 - Statistic example embed and data analasys from database
+- Graph display for guesses in stats embed
 
 ### Fixed
 - Bugs
