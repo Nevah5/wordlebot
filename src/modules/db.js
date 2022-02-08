@@ -1,5 +1,6 @@
 const fs = require("fs");
 const mysql = require("mysql");
+const { resolve } = require("path");
 const { lastGuess } = require("./embeds");
 require("dotenv").config();
 
@@ -12,9 +13,11 @@ var con = mysql.createConnection({
 con.connect();
 
 const saveID = (userID, id) => {
-  con.query(`DELETE FROM games WHERE userID="${userID}"`);
-  con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
-  con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
+  return new Promise((resolve) => {
+    con.query(`DELETE FROM games WHERE userID="${userID}"`);
+    con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
+    con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
+  });
 }
 const getUserGameID = (userID) => {
   return new Promise((resolve, reject) => {
@@ -42,10 +45,16 @@ const clearGameData = (userID) => {
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
   });
 }
+const saveStats = (userID, numGuesses, hasFinished) => {
+  return new Promise((resolve, reject) => {
+    //...
+  });
+}
 
 module.exports = {
   saveID,
   getUserGameID,
   addGuess,
-  clearGameData
+  clearGameData,
+  saveStats
 }

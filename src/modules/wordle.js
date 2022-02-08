@@ -13,7 +13,7 @@ newGame = (id, interaction) => {
   }else{
     id = Math.floor(Math.random() * (gameWords.length - 1));
   }
-  db.saveID(interaction.user.id, id);
+  await db.saveID(interaction.user.id, id);
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
@@ -86,7 +86,8 @@ guess = async (guess, interaction, playNewBtn) => {
   if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
     interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
   }else{
-    db.clearGameData(interaction.user.id);
+    await db.clearGameData(interaction.user.id);
+    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessColors.length - 1] == "🟩🟩🟩🟩🟩");
     interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }
