@@ -3,6 +3,9 @@
 ### Added
 - Selection menu for stats in new module `./src/modules/interactions.js`
 
+### Changed
+- All interaction stuff and moved into module
+
 ### Fixed
 - Slash command bug on /stat when giving no user
 
