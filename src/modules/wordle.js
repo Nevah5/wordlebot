@@ -141,7 +141,7 @@ stats = async (user, interaction, update = null) => {
   });
   winrate = Math.floor((100 / totalgames * gamesWon) * 100) / 100;
   var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay, update];
-  if(update == null || update != "LIFETIME"){
+  if(update == null){
     interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: false});
   }else{
     interaction.update({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: true});

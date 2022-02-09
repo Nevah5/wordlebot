@@ -2,6 +2,7 @@
 ## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 09.02.2022
 ### Fixed
 - Embed lifetime selection sending reply instead of update
+- All selections in stats menu replying instead of update
 
 ## [Alpha 1.4.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.2) - 09.02.2022
 ### Added
