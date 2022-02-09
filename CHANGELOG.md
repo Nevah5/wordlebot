@@ -1,5 +1,5 @@
 # Changelog (Alpha Versions)
-## [Release Alpha 1.4.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.2) - 09.02.2022
+## [Alpha 1.4.2](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.2) - 09.02.2022
 ### Added
 - Selection menu for stats in new module `./src/modules/interactions.js`
 - Working selection menu
@@ -9,8 +9,9 @@
 
 ### Fixed
 - Slash command bug on /stat when giving no user
+- Mistake in Changelog
 
-## [Release Alpha 1.4.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.1) - 08.02.2022
+## [Alpha 1.4.1](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.1) - 08.02.2022
 ### Added
 - Promise to saveid db function
 - Save stats into db
