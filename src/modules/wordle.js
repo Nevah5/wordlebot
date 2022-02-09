@@ -104,6 +104,8 @@ stats = async (user, interaction, update = null) => {
   var totalgamesfinished = 0;
   var gamesWon = 0;
   var tries = [0, 0, 0, 0, 0, 0, 0];
+  var firstGame = data[0].timestamp;
+  var lastGame = data[data.length - 1].timestamp;
   //put data into vars
   data.forEach(datapacket => {
     totalgames++;
@@ -140,7 +142,7 @@ stats = async (user, interaction, update = null) => {
     guessStatsDisplay += "\n";
   });
   winrate = Math.floor((100 / totalgames * gamesWon) * 100) / 100;
-  var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay, update];
+  var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay, update, firstGame, lastGame];
   if(update == null){
     interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: false});
   }else{

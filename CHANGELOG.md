@@ -1,5 +1,8 @@
 # Changelog (Alpha Versions)
 ## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 09.02.2022
+### Added
+- First and last game stats
+
 ### Fixed
 - Embed lifetime selection sending reply instead of update
 - All selections in stats menu replying instead of update
