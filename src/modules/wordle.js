@@ -95,10 +95,10 @@ guess = async (guess, interaction, playNewBtn) => {
   }
 }
 
-stats = async (user, interaction) => {
+stats = async (user, interaction, update = null) => {
   if(user == null){ user = interaction.user; }
   if(user.bot) return interaction.reply({embeds: [embeds.error("You can not get the stats of a bot!")], ephemeral: true});
-  const data = await db.getStats(user.id).catch(_ => { return null; });
+  const data = await db.getStats(user.id, update).catch(_ => { return null; });
   if(!data) return interaction.reply({embeds: [embeds.error("This user unfortunatly doesn't have any stats yet!")], ephemeral: true});
   var totalgames = 0;
   var totalgamesfinished = 0;
@@ -140,8 +140,12 @@ stats = async (user, interaction) => {
     guessStatsDisplay += "\n";
   });
   winrate = Math.floor((100 / totalgames * gamesWon) * 100) / 100;
-  var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay];
-  interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: false});
+  var embedData = [totalgames, totalgamesfinished, gamesWon, winrate, guessStatsDisplay, update];
+  if(update == null){
+    interaction.reply({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: false});
+  }else{
+    interaction.update({embeds: [embeds.stats(user.id, user.avatarURL(), user.username, embedData)], components: [interactions.stats], ephemeral: true});
+  }
 }
 
 module.exports = {

@@ -124,7 +124,14 @@ const stats = (id, avatarURL, username, data) => {
    * data[2] -> Games finished
    * data[3] -> Winrate
    * data[4] -> Guess Color display graph
+   * data[5] -> timeline string
    */
+  var statsFrom = "LIFETIME";
+  if(data[5] == "1 DAY"){
+    statsFrom = "LAST 24h";
+  }else if(data[5] == "7 DAY"){
+    statsFrom = "LAST WEEK";
+  }
   var gameStats = "🟩 - " + data[0] + " Games started - 🟩\n";
   gameStats += "The amount of games the user has started.\n\n";
   gameStats += "🟩 - " + data[1] + " Games won - 🟩\n";
@@ -135,7 +142,7 @@ const stats = (id, avatarURL, username, data) => {
   gameStats += "The winrate is calculated by the amount of games started, divided by the amount of games won.\n";
   return new MessageEmbed()
   .setTitle(username+"'s Statistics")
-  .setDescription("<@"+id+">\n\n**LIFETIME STATISTICS**")
+  .setDescription("<@"+id+">\n\n**"+statsFrom+" STATISTICS**")
   .setThumbnail(avatarURL)
   .addFields(
     {

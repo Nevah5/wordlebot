@@ -76,7 +76,7 @@ client.on('ready', _ => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  interactions.interactions(interaction);
+  interactions.interactions(client, interaction);
 });
 
 // --- Bot Login --- \\

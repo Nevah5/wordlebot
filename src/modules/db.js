@@ -52,12 +52,19 @@ const saveStats = (userID, numGuesses, hasFinished) => {
     resolve();
   });
 }
-const getStats = (userID) => {
+const getStats = (userID, time) => {
   return new Promise((resolve, reject) => {
-    con.query(`SELECT * FROM stats WHERE userID="${userID}"`, (err, results) => {
-      if(results.length == 0) return reject();
-      resolve(results);
-    });
+    if(time == null){
+      con.query(`SELECT * FROM stats WHERE userID="${userID}"`, (err, results) => {
+        if(results.length == 0) return reject();
+        resolve(results);
+      });
+    }else{
+      con.query(`SELECT * FROM stats WHERE userID="${userID}" AND timestamp > (NOW() - INTERVAL ${time}) ORDER BY timestamp`, (err, results) => {
+        if(results.length == 0) return reject();
+        resolve(results);
+      });
+    }
   });
 };
 
