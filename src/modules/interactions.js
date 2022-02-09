@@ -1,4 +1,4 @@
-const { MessageSelectMenu, MessageActionRow } = require("discord.js");
+const { MessageSelectMenu, MessageActionRow, MessageButton } = require("discord.js");
 
 const wordle = require("./wordle.js");
 
@@ -30,7 +30,7 @@ exports.interactions = (client, interaction) => {
   }else if(interaction.isSelectMenu()){
     if(interaction.customId == "stattimeline"){
       let selection = interaction.values[0];
-      var interval = null;
+      var interval = "LIFETIME";
       if(selection == 'lastweek'){
         interval = "7 DAY";
       }else if(selection == 'today'){

@@ -54,12 +54,13 @@ const saveStats = (userID, numGuesses, hasFinished) => {
 }
 const getStats = (userID, time) => {
   return new Promise((resolve, reject) => {
-    if(time == null){
+    if(time == null || time == "LIFETIME"){
       con.query(`SELECT * FROM stats WHERE userID="${userID}"`, (err, results) => {
         if(results.length == 0) return reject();
         resolve(results);
       });
     }else{
+
       con.query(`SELECT * FROM stats WHERE userID="${userID}" AND timestamp > (NOW() - INTERVAL ${time}) ORDER BY timestamp`, (err, results) => {
         if(results.length == 0) return reject();
         resolve(results);
