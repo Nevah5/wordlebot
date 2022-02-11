@@ -36,6 +36,7 @@ client.on('ready', _ => {
   const guild = client.guilds.cache.get("908019966022942730");
   var commands = guild.commands; // --- Guild commands --- \\
   // var commands = client.application.commands; // --- Global commands --- \\
+  // --- /new --- \\
   commands.create({
     name: 'new',
     description: 'Start a new wordle game.',
@@ -49,6 +50,7 @@ client.on('ready', _ => {
       }
     ]
   });
+  // --- /guess --- \\
   commands.create({
     name: 'guess',
     description: 'Guess a word on your current game.',
@@ -61,6 +63,7 @@ client.on('ready', _ => {
       }
     ]
   });
+  // --- /stats --- \\
   commands.create({
     name: 'stats',
     description: 'Show the stats of a user.',
