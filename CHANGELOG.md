@@ -1,5 +1,5 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 09.02.2022
+## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 12.02.2022
 ### Added
 - First and last game stats
 - Stats for each server in db image
