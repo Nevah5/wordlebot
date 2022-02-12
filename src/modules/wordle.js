@@ -14,8 +14,8 @@ newGame = async (id, interaction) => {
   }else{
     id = Math.floor(Math.random() * (gameWords.length - 1));
   }
-  await db.saveID(interaction.user.id, id);
-  await db.saveStats(interaction.user.id, -2, true);
+  await db.saveID(interaction.user.id, id, interaction.guild.id);
+  await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
   interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
 }
 
@@ -32,7 +32,7 @@ guess = async (guess, interaction, playNewBtn) => {
   var wordSplit = word.split("");
 
   // --- Check each guess --- \\
-  const addGuess = await db.addGuess(interaction.user.id, guess);
+  const addGuess = await db.addGuess(interaction.user.id, guess, interaction.guild.id);
   var guesses = addGuess[0];
   var lastGuess = addGuess[1];
   var guessesColors = [];
@@ -89,7 +89,7 @@ guess = async (guess, interaction, playNewBtn) => {
     interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
   }else{
     await db.clearGameData(interaction.user.id);
-    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessesColors.length - 1] == "🟩🟩🟩🟩🟩");
+    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessesColors.length - 1] == "🟩🟩🟩🟩🟩", interaction.guild.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
   }

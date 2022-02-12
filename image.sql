@@ -30,5 +30,5 @@ CREATE TABLE IF NOT EXISTS rankings(
   started INT UNSIGNED,
   won INT UNSIGNED,
   finished INT UNSIGNED,
-  winrate INT(3) UNSIGNED
+  numGuesses INT UNSIGNED
 );

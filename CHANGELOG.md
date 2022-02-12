@@ -4,6 +4,7 @@
 - First and last game stats
 - Stats for each server in db image
 - Comments to create commands in `index.js`
+- Rankings for each guild
 
 ### Fixed
 - Embed lifetime selection sending reply instead of update

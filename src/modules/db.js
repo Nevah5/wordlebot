@@ -10,8 +10,9 @@ var con = mysql.createConnection({
 });
 con.connect();
 
-const saveID = (userID, id) => {
+const saveID = (userID, id, guildID) => {
   return new Promise((resolve) => {
+    // --- START NEW GAME --- \\
     con.query(`DELETE FROM games WHERE userID="${userID}"`);
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
     con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
@@ -26,13 +27,22 @@ const getUserGameID = (userID) => {
     });
   });
 }
-const addGuess = (userID, guess) => { //adds guess and returns all guesses
+const addGuess = (userID, guess, guildID) => { //adds guess and returns all guesses
   return new Promise((resolve, reject) => {
     con.query(`INSERT INTO guesses VALUES (null, "${userID}", "${guess}")`);
     con.query(`SELECT guess FROM guesses WHERE userID="${userID}"`, (err, results) => {
       var guesses = [];
       results.forEach(result => {
         guesses.push(result.guess);
+      });
+      // --- SERVER RANKINGS --- \\
+      con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
+        if(results.length == 0){
+          con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 1)`);
+        }else{
+          const newGuesses = results[0].numGuesses + 1;
+          con.query(`UPDATE rankings SET numGuesses=${newGuesses} WHERE userID="${userID}" AND guildID="${guildID}"`);
+        }
       });
       resolve([guesses, results.length == 6]);
     });
@@ -45,10 +55,23 @@ const clearGameData = (userID) => {
     resolve();
   });
 }
-const saveStats = (userID, numGuesses, hasFinished) => {
+const saveStats = (userID, numGuesses, hasFinished, guildID) => {
   return new Promise((resolve, reject) => {
     numGuesses = !hasFinished ? -1 : numGuesses;
     con.query(`INSERT INTO stats VALUES (null, "${userID}", ${numGuesses}, default)`);
+    // --- SERVER RANKINGS --- \\
+    con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
+      if(results.length == 0){
+        con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 0)`);
+      }else{
+        if(numGuesses != -2){
+          const hasWon = hasFinished ? 1 : 0;
+          const won = results[0].won + hasWon;
+          const finished = numGuesses == -1 ? results[0].finished + 1 : 0;
+          con.query(`UPDATE rankings SET won=${won}, finished=${finished} WHERE userID="${userID}" AND guildID="${guildID}"`);
+        }
+      }
+    });
     resolve();
   });
 }
