@@ -3,6 +3,7 @@
 ### Added
 - Updated attribute in ranking table
 - Server ranking command
+- Example top players in server embed
 
 ### Updated
 - Ranking command interaction handler to work with server subcommand

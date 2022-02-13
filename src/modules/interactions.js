@@ -20,7 +20,6 @@ exports.interactions = (client, interaction) => {
         )
       wordle.guess(guess, interaction, playNewBtn);
     }else if(commandName === 'stats'){
-      console.log(options);
       if(options.getSubcommand() == 'user'){
         let user = options.getUser('user');
         wordle.stats(user, interaction);

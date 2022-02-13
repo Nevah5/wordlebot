@@ -163,6 +163,17 @@ const stats = (id, avatarURL, username, data) => {
   .setColor("#6AAA64")
   .setTimestamp();
 }
+const topServer = (server) => {
+  const topPlayers = "```+---------------------------------------+\n|                Results                |\n+-------------+-------------------------+\n|             |        Contestant       |\n| Competition +-------+--------+--------+\n|             |  John | Andrea | Robert |\n+-------------+-------+--------+--------+\n| Swimming    |  1:30 |   2:05 |   1:15 |\n+-------------+-------+--------+--------+\n| Running     | 15:30 |  14:10 |  15:45 |\n+-------------+-------+--------+--------+```";
+  return new MessageEmbed()
+  .setTitle(`Top players of ${server.name}`)
+  .setDescription(topPlayers)
+  .setThumbnail(server.iconURL())
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setFooter({text: `${server.id}`})
+  .setColor("#6AAA64")
+  .setTimestamp();
+}
 
 module.exports = {
   error,
@@ -170,5 +181,6 @@ module.exports = {
   lastGuess,
   newGame,
   result,
-  stats
+  stats,
+  topServer
 };

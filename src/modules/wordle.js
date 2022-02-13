@@ -150,8 +150,14 @@ stats = async (user, interaction, update = null) => {
   }
 }
 
+topServer = async (interaction) => {
+  const server = interaction.guild;
+  interaction.reply({embeds: [embeds.topServer(server)]});
+}
+
 module.exports = {
   newGame,
   guess,
-  stats
+  stats,
+  topServer
 };
