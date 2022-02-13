@@ -4,6 +4,9 @@
 - Updated attribute in ranking table
 - Server ranking command
 
+### Updated
+- Ranking command interaction handler to work with server subcommand
+
 ## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 12.02.2022
 ### Added
 - First and last game stats

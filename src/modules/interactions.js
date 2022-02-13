@@ -20,8 +20,13 @@ exports.interactions = (client, interaction) => {
         )
       wordle.guess(guess, interaction, playNewBtn);
     }else if(commandName === 'stats'){
-      let user = options.getUser('user');
-      wordle.stats(user, interaction);
+      console.log(options);
+      if(options.getSubcommand() == 'user'){
+        let user = options.getUser('user');
+        wordle.stats(user, interaction);
+      }else if(options.getSubcommand() == 'server'){
+        wordle.topServer(interaction);
+      }
     }
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){
