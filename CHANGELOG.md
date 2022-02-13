@@ -2,6 +2,7 @@
 ## [Alpha 1.4.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.4) - 12.02.2022
 ### Added
 - Updated attribute in ranking table
+- Server ranking command
 
 ## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 12.02.2022
 ### Added

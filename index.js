@@ -70,9 +70,21 @@ client.on('ready', _ => {
     options: [
       {
         name: 'user',
-        description: 'Guess a 5 character long word.',
-        required: false,
-        type: "USER"
+        description: 'Show the stats of you or a specified user.',
+        type: "SUB_COMMAND",
+        options: [
+          {
+            name: 'user',
+            description: 'See the stats of a specific user.',
+            required: false,
+            type: "USER"
+          }
+        ]
+      },
+      {
+        name: 'server',
+        description: 'Show the top players of this server.',
+        type: "SUB_COMMAND"
       }
     ]
   });
