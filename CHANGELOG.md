@@ -7,6 +7,7 @@
 
 ### Updated
 - Ranking command interaction handler to work with server subcommand
+- Top players server embed example
 
 ## [Alpha 1.4.3](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.3) - 12.02.2022
 ### Added

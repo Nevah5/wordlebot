@@ -164,11 +164,23 @@ const stats = (id, avatarURL, username, data) => {
   .setTimestamp();
 }
 const topServer = (server) => {
-  const topPlayers = "```+---------------------------------------+\n|                Results                |\n+-------------+-------------------------+\n|             |        Contestant       |\n| Competition +-------+--------+--------+\n|             |  John | Andrea | Robert |\n+-------------+-------+--------+--------+\n| Swimming    |  1:30 |   2:05 |   1:15 |\n+-------------+-------+--------+--------+\n| Running     | 15:30 |  14:10 |  15:45 |\n+-------------+-------+--------+--------+```";
+  const topPlayers = "";
   return new MessageEmbed()
   .setTitle(`Top players of ${server.name}`)
-  .setDescription(topPlayers)
+  .setDescription("The top wordle players in this server.\n\n**Top Players**\nSorted by Games Started")
   .setThumbnail(server.iconURL())
+  .addFields(
+    {
+      name: '\u200b',
+      value: '<@938399230614192169>\nGames started: 23\nGames won: 10\nGames finished: 22\nNumber guesses: 130',
+      inline: false
+    },
+    {
+      name: '\u200b',
+      value: '<@550651191885955072>\nGames started: 21\nGames won: 8\nGames finished: 10\nNumber guesses: 193',
+      inline: false
+    },
+  )
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .setFooter({text: `${server.id}`})
   .setColor("#6AAA64")
