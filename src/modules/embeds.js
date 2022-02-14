@@ -171,12 +171,12 @@ const topServer = (server) => {
   .setThumbnail(server.iconURL())
   .addFields(
     {
-      name: '\u200b',
+      name: '1. -------------------',
       value: '<@938399230614192169>\nGames started: 23\nGames won: 10\nGames finished: 22\nNumber guesses: 130',
       inline: false
     },
     {
-      name: '\u200b',
+      name: '2. -------------------',
       value: '<@550651191885955072>\nGames started: 21\nGames won: 8\nGames finished: 10\nNumber guesses: 193',
       inline: false
     },

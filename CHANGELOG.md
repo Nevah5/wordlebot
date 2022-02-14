@@ -4,6 +4,7 @@
 - Updated attribute in ranking table
 - Server ranking command
 - Example top players in server embed
+- Database request for top winrate player in server
 
 ### Updated
 - Ranking command interaction handler to work with server subcommand

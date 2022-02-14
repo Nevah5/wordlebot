@@ -151,7 +151,15 @@ stats = async (user, interaction, update = null) => {
 }
 
 topServer = async (interaction) => {
+  var type = "";
+  if(interaction.isCommand()){
+    type = "winrate";
+  }
   const server = interaction.guild;
+  const data = await db.getTopPlayers(type).catch(_ => { return null });
+  if(!data.isArray()){
+    return interaction.reply({embeds: [embeds.error("This Server doesnt have any players yet!")], ephemeral: true});
+  }
   interaction.reply({embeds: [embeds.topServer(server)]});
 }
 

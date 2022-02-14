@@ -92,6 +92,20 @@ const getStats = (userID, time) => {
   });
 };
 
+const getTopPlayers = (type) => {
+  return new Promise((resolve, reject) => {
+    if(type == "winrate"){
+      con.query(
+        `SELECT * FROM rankings ORDER BY (100 / started * won) DESC LIMIT 5`,
+        (err, results) => {
+          if(results.length == 0)
+          resolve("nodata");
+        }
+      );
+    }
+  })
+}
+
 module.exports = {
   saveID,
   getUserGameID,
