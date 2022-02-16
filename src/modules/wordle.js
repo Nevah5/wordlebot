@@ -152,16 +152,23 @@ stats = async (user, interaction, update = null) => {
 
 topServer = async (interaction) => {
   var type = "";
+  var edit = false;
   if(interaction.isCommand()){
     type = "winrate";
+  }else if(interaction.isSelectMenu()){
+    var selection = interaction.values[0];
+    edit = true;
+    type = selection;
   }
   const server = interaction.guild;
-  const data = await db.getTopPlayers(type).catch(_ => { return null });
-  if(!data.isArray()){
+  const data = await db.getTopPlayers(type, server.id).catch(_ => { return null });
+  if(typeof data == Array){
     return interaction.reply({embeds: [embeds.error("This Server doesnt have any players yet!")], ephemeral: true});
   }
-  console.log(data);
-  interaction.reply({embeds: [embeds.topServer(server)]});
+  if(!edit){
+    return interaction.reply({embeds: [embeds.topServer(server, data, type)], components: [interactions.serverstats]});
+  }
+  interaction.update({embeds: [embeds.topServer(server, data, type)], components: [interactions.serverstats]})
 }
 
 module.exports = {

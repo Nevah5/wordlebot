@@ -1,3 +1,8 @@
+# Changelog (Beta Versions)
+## [Release Beta 1.0](https://github.com/Nevah5/wordlebot/releases/tag/b1.0) - 16.02.2022
+### Added
+- Stats for every server
+
 # Changelog (Alpha Versions)
 ## [Release Alpha 1.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.5) - 16.02.2022
 ### Fixed

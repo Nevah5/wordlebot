@@ -100,14 +100,38 @@ const getStats = (userID, time) => {
   });
 };
 
-const getTopPlayers = (type) => {
+const getTopPlayers = (type, guildID) => {
   return new Promise((resolve, reject) => {
     if(type == "winrate"){
       con.query(
-        `SELECT * FROM rankings ORDER BY (100 / started * won) DESC LIMIT 5`,
+        `SELECT * FROM rankings WHERE guildID="${guildID}" ORDER BY (100 / started * won) DESC LIMIT 5`,
         (err, results) => {
-          if(results.length == 0)
-          resolve("nodata");
+          if(results.length == 0) return resolve("nodata");
+          resolve(results);
+        }
+      );
+    }else if(type == "finished"){
+      con.query(
+        `SELECT * FROM rankings WHERE guildID="${guildID}" ORDER BY finished DESC LIMIT 5`,
+        (err, results) => {
+          if(results.length == 0) return resolve("nodata");
+          resolve(results);
+        }
+      );
+    }else if(type == "guesses"){
+      con.query(
+        `SELECT * FROM rankings WHERE guildID="${guildID}" ORDER BY numGuesses DESC LIMIT 5`,
+        (err, results) => {
+          if(results.length == 0) return resolve("nodata");
+          resolve(results);
+        }
+      );
+    }else if(type == "started"){
+      con.query(
+        `SELECT * FROM rankings WHERE guildID="${guildID}" ORDER BY started DESC LIMIT 5`,
+        (err, results) => {
+        if(results.length == 0) return resolve("nodata");
+          resolve(results);
         }
       );
     }
@@ -120,5 +144,6 @@ module.exports = {
   addGuess,
   clearGameData,
   saveStats,
-  getStats
+  getStats,
+  getTopPlayers
 }

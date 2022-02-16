@@ -43,6 +43,8 @@ exports.interactions = (client, interaction) => {
       var userID = interaction.message.embeds[0].description.split('>')[0].split('<@')[1];
       var user = client.users.fetch(userID);
       wordle.stats(user.User, interaction, interval);
+    }else if(interaction.customId == "serverstat"){
+      wordle.topServer(interaction);
     }
   }
 }
@@ -58,3 +60,16 @@ exports.stats = new MessageActionRow()
     {label: 'Lifetime', description: 'The lifetime stats of this user.', value: 'lifetime'}
   ])
 );
+
+exports.serverstats = new MessageActionRow()
+.addComponents(
+  new MessageSelectMenu()
+  .setCustomId('serverstat')
+  .setPlaceholder('Select SORT BY')
+  .addOptions([
+    {label: 'Winrate', description: 'Orders the top players by winrate.', value: 'winrate'},
+    {label: 'Games Finished', description: 'Orders the top players by games finished.', value: 'finished'},
+    {label: 'Number Guesses', description: 'Orders the top players by number guesses.', value: 'guesses'},
+    {label: 'Games Started', description: 'Orders the top players by games started.', value: 'started'}
+  ])
+)
