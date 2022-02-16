@@ -16,6 +16,14 @@ const saveID = (userID, id, guildID) => {
     con.query(`DELETE FROM games WHERE userID="${userID}"`);
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
     con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
+    con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
+      if(results.length == 0){
+        con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 0, null)`);
+      }else{
+        const started = results[0].started + 1;
+        con.query(`UPDATE rankings SET started=${started} WHERE userID="${userID}" AND guildID="${guildID}"`);
+      }
+    });
     resolve();
   });
 }
@@ -38,7 +46,7 @@ const addGuess = (userID, guess, guildID) => { //adds guess and returns all gues
       // --- SERVER RANKINGS --- \\
       con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
         if(results.length == 0){
-          con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 1)`);
+          con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 1, null)`);
         }else{
           const newGuesses = results[0].numGuesses + 1;
           con.query(`UPDATE rankings SET numGuesses=${newGuesses} WHERE userID="${userID}" AND guildID="${guildID}"`);
@@ -62,7 +70,7 @@ const saveStats = (userID, numGuesses, hasFinished, guildID) => {
     // --- SERVER RANKINGS --- \\
     con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
       if(results.length == 0){
-        con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 0)`);
+        con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 0, null)`);
       }else{
         if(numGuesses != -2){
           const hasWon = hasFinished ? 1 : 0;

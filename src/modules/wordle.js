@@ -160,6 +160,7 @@ topServer = async (interaction) => {
   if(!data.isArray()){
     return interaction.reply({embeds: [embeds.error("This Server doesnt have any players yet!")], ephemeral: true});
   }
+  console.log(data);
   interaction.reply({embeds: [embeds.topServer(server)]});
 }
 

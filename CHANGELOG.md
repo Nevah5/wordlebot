@@ -1,5 +1,9 @@
 # Changelog (Alpha Versions)
-## [Alpha 1.4.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.4) - 12.02.2022
+## [Release Alpha 1.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.5) - 16.02.2022
+### Fixed
+- Bug where games started in server statistics wont increase
+
+## [Alpha 1.4.4](https://github.com/Nevah5/wordlebot/releases/tag/a1.4.4) - 14.02.2022
 ### Added
 - Updated attribute in ranking table
 - Server ranking command
