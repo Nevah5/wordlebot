@@ -124,7 +124,7 @@ guess = async (guess, interaction, playNewBtn) => {
     interaction.reply({embeds: [embeds.guess(wordID, guessesAmount, guessesDisplay, interaction.user.id, letters)], ephemeral: true});
   }else{
     await db.clearGameData(interaction.user.id, interaction.guild.id);
-    await db.saveStats(interaction.user.id, guessesDisplay.length, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
+    await db.saveStats(interaction.user.id, guessesDisplay.length / 2, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guessesDisplay, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)], components: [interactions.playThisWordle]});
   }
@@ -143,7 +143,7 @@ stats = async (user, interaction, update = null) => {
   var lastGame = data[data.length - 1].timestamp;
   //put data into vars
   data.forEach(datapacket => {
-    totalgames++;
+    totalgames += datapacket.guesses != -2 ? 1 : 0;
     totalgamesfinished += datapacket.guesses >= -1;
     gamesWon += datapacket.guesses >= 0;
     tries[0] += datapacket.guesses == 1 ? 1 : 0;

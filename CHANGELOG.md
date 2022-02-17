@@ -1,4 +1,8 @@
 # Changelog (Beta Versions)
+## [Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.3) - 17.02.2022
+### Fixed
+- Bug where stats wouldn't count right
+
 ## [Beta 1.2.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.2) - 17.02.2022
 ### Added
 - Help embed and command
