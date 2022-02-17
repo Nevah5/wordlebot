@@ -3,6 +3,9 @@
 ### Added
 - Help embed and command
 
+### Fixed
+- /daily command not working
+
 ## [Beta 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.1) - 17.02.2022
 ### Changed
 - Wordle game words

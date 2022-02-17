@@ -20,10 +20,10 @@ newGame = async (id, interaction) => {
     }
     do{
       id = Math.floor(Math.random() * (dailyID + 1));
-    }while(!await db.checkPlayed(interaction.user.id, interaction.guild.id, id));
+    }while(await db.checkPlayed(interaction.user.id, interaction.guild.id, id));
   }
   //check if user hasnt played this id yet
-  if(!await db.checkPlayed(interaction.user.id, interaction.guild.id, id)){
+  if(await db.checkPlayed(interaction.user.id, interaction.guild.id, id)){
     return interaction.reply({embeds: [embeds.error("You can't play this wordle again!")], ephemeral: true});
   }
   await db.saveID(interaction.user.id, id, interaction.guild.id);
@@ -205,7 +205,7 @@ daily = async (interaction) => {
   //save the game & stats
   await db.saveID(interaction.user.id, dailyID, interaction.guild.id);
   await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
-  interaction.reply({embeds: [embeds.daily(id, interaction.user.id)], ephemeral: true});
+  interaction.reply({embeds: [embeds.daily(dailyID, interaction.user.id)], ephemeral: true});
 }
 
 module.exports = {

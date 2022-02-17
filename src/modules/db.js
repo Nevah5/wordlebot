@@ -30,7 +30,7 @@ const saveID = (userID, id, guildID) => {
 const checkPlayed = (userID, guildID, gameID) => {
   return new Promise((resolve, reject) => {
     con.query(`SELECT * FROM gamesplayed WHERE userID="${userID}" AND guildID="${guildID}" AND gameID=${gameID}`, (err, results) => {
-      resolve(results.length == 0);
+      resolve(results.length != 0); //if not played then true
     });
   });
 }
