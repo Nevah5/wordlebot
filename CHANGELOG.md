@@ -4,6 +4,9 @@
 - Port config into `.env.example`
 - Description to configs
 
+### Changed
+- Server commands to be global now
+
 ### Fixed
 - Bot token not working on linux
 
