@@ -19,7 +19,7 @@ const client = new Client({
 const interactions = require("./src/modules/interactions");
 
 // --- Variables --- \\
-const token = process.env.token;
+const token = process.env.TOKEN;
 
 // ------------------------------------------------ \\
 

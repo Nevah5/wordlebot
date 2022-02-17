@@ -1,3 +1,8 @@
+# Changelog
+## [Version 1.0](https://github.com/Nevah5/wordlebot/releases/tag/v1.0) - 17.02.2022
+### Fixed
+- Bot token not working on linux
+
 # Changelog (Beta Versions)
 ## [Release Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.3) - 17.02.2022
 ### Changed
