@@ -1,4 +1,8 @@
 # Changelog
+## [Version 1.0.1](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.1) - 18.02.2022
+### Fixed
+- Bug on daily wordle not working
+
 ## [Version 1.0](https://github.com/Nevah5/wordlebot/releases/tag/v1.0) - 17.02.2022
 ### Added
 - Port config into `.env.example`

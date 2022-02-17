@@ -208,7 +208,8 @@ topServer = async (interaction) => {
 
 getDailyID = () => {
   const firstDaily = new Date('2022-01-01');
-  const dailyID = Math.round((Date.now() - firstDaily) / (24*60*60*1000));
+  const today = new Date();
+  const dailyID = Math.round((new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0, 0) - firstDaily) / (24*60*60*1000));
   return dailyID;
 }
 
