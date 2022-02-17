@@ -16,7 +16,7 @@ exports.interactions = async (client, interaction) => {
         .addComponents(
           new MessageButton()
           .setCustomId('playagain')
-          .setLabel("Play Again")
+          .setLabel("Play a new wordle")
           .setStyle('SUCCESS')
         )
       wordle.guess(guess, interaction, playNewBtn);
