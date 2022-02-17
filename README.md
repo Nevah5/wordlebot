@@ -10,7 +10,7 @@
 
 <div align="center">
 
-[![](https://img.shields.io/badge/Invite-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=938399230614192169&permissions=8&scope=applications.commands%20bot)
+[![](https://img.shields.io/badge/Invite-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=938399230614192169&permissions=2048&scope=bot%20applications.commands)
 
 </div>
 
