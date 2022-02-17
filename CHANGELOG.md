@@ -1,5 +1,9 @@
 # Changelog (Beta Versions)
-## [Release Beta 1.0](https://github.com/Nevah5/wordlebot/releases/tag/b1.0) - 16.02.2022
+## [Beta 1.0.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.0.1) - 17.02.2022
+### Changed
+- Commands to now be global
+
+## [Release Beta 1.0](https://github.com/Nevah5/wordlebot/releases/tag/b1.0) - 17.02.2022
 ### Added
 - Stats for every server
 - Bold selected server stat
