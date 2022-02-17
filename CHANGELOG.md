@@ -5,6 +5,9 @@
 - Bold selected server stat
 - Games won stat to selection menu on server stats
 
+### Fixed
+- Bug where ranking stats get created twice
+
 # Changelog (Alpha Versions)
 ## [Release Alpha 1.5](https://github.com/Nevah5/wordlebot/releases/tag/a1.5) - 16.02.2022
 ### Fixed

@@ -17,9 +17,7 @@ const saveID = (userID, id, guildID) => {
     con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
     con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
     con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
-      if(results.length == 0){
-        con.query(`INSERT INTO rankings VALUES (null, "${guildID}", "${userID}", 1, 0, 0, 0, null)`);
-      }else{
+      if(results.length != 0){ //creating a tuple for this user in saveStats()
         const started = results[0].started + 1;
         con.query(`UPDATE rankings SET started=${started} WHERE userID="${userID}" AND guildID="${guildID}"`);
       }
