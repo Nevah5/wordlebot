@@ -12,7 +12,17 @@ newGame = async (id, interaction) => {
     // --- Test if user inputted invalid id --- \\
     if(id > gameWords.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+gameWords.length+"]")], ephemeral: true});
   }else{
-    id = Math.floor(Math.random() * (gameWords.length - 1));
+    //generate non played id
+    if(await db.getAmountPlayed() == gameWords.length){
+      return interaction.reply({embeds: [embeds.error("You have already played every wordle. Amazing! Please come back later for more.")], ephemeral: true});
+    }
+    do{
+      id = Math.floor(Math.random() * (gameWords.length - 1));
+    }while(!await db.checkPlayed(interaction.user.id, interaction.guild.id, id));
+  }
+  //check if user hasnt played this id yet
+  if(!await db.checkPlayed(interaction.user.id, interaction.guild.id, id)){
+    return interaction.reply({embeds: [embeds.error("You can't play this wordle again!")], ephemeral: true});
   }
   await db.saveID(interaction.user.id, id, interaction.guild.id);
   await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
@@ -25,7 +35,7 @@ guess = async (guess, interaction, playNewBtn) => {
   if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Check if user has started game --- \\
-  var wordID = await db.getUserGameID(interaction.user.id).catch(_ => { return -1; });
+  var wordID = await db.getUserGameID(interaction.user.id, interaction.guild.id).catch(_ => { return -1; });
   if(wordID == -1) return interaction.reply({embeds: [embeds.error("You have to start a new game first. Type /new <id (optional)>")], ephemeral: true});
   // --- Split the word into array --- \\
   const word = getWord(wordID);
@@ -94,7 +104,7 @@ guess = async (guess, interaction, playNewBtn) => {
   if(!lastGuess && guessesDisplay[guessesDisplay.length - 2] != "🟩🟩🟩🟩🟩"){
     interaction.reply({embeds: [embeds.guess(wordID, guessesAmount, guessesDisplay, interaction.user.id, letters)], ephemeral: true});
   }else{
-    await db.clearGameData(interaction.user.id);
+    await db.clearGameData(interaction.user.id, interaction.guild.id);
     await db.saveStats(interaction.user.id, guessesDisplay.length, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guessesDisplay, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)], components: [interactions.playThisWordle]});

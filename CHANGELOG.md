@@ -3,6 +3,9 @@
 ### Added
 - Play this wordle button on results for other players
 
+### Changed
+- Wordles to now be per server
+
 ## [Beta 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.1.1) - 17.02.2022
 ### Added
 - Discord timestampts to user stats

@@ -34,7 +34,7 @@ exports.interactions = (client, interaction) => {
     }else if(interaction.customId == "playthiswordle"){
       let id = interaction.message.embeds[0].title.split("#")[1];
       if(interaction.message.embeds[0].description.split("<@")[1].split(">")[0] == interaction.user.id){
-        interaction.reply({embeds: [embeds.error("You cannot play this wordle again!")], ephemeral: true})
+        interaction.reply({embeds: [embeds.error("You can't play this wordle again!")], ephemeral: true})
       }else{
         wordle.newGame(id, interaction);
       }

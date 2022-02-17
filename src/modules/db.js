@@ -1,5 +1,6 @@
 const fs = require("fs");
 const mysql = require("mysql");
+const { resolve } = require("path");
 require("dotenv").config();
 
 var con = mysql.createConnection({
@@ -13,9 +14,10 @@ con.connect();
 const saveID = (userID, id, guildID) => {
   return new Promise((resolve) => {
     // --- START NEW GAME --- \\
-    con.query(`DELETE FROM games WHERE userID="${userID}"`);
-    con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
-    con.query(`INSERT INTO games VALUES (null, "${userID}", ${id})`);
+    con.query(`DELETE FROM currentgames WHERE guildID="${guildID}" AND userID="${userID}"`);
+    con.query(`DELETE FROM guesses WHERE guildID="${guildID}" AND userID="${userID}"`);
+    con.query(`INSERT INTO currentgames VALUES (null, "${guildID}", "${userID}", ${id}, default)`);
+    con.query(`INSERT INTO gamesplayed VALUES (null, "${guildID}", "${userID}", ${id}, default)`);
     con.query(`SELECT * FROM rankings WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
       if(results.length != 0){ //creating a tuple for this user in saveStats()
         const started = results[0].started + 1;
@@ -25,9 +27,23 @@ const saveID = (userID, id, guildID) => {
     resolve();
   });
 }
-const getUserGameID = (userID) => {
+const checkPlayed = (userID, guildID, gameID) => {
   return new Promise((resolve, reject) => {
-    con.query(`SELECT * FROM games WHERE userID="${userID}"`, (err, results) => {
+    con.query(`SELECT * FROM gamesplayed WHERE userID="${userID}" AND guildID="${guildID}" AND gameID=${gameID}`, (err, results) => {
+      resolve(results.length == 0);
+    });
+  });
+}
+const getAmountPlayed = (userID, guildID) => {
+  return new Promise((resolve, reject) => {
+    con.query(`SELECT * FROM gamesplayed WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
+      resolve(results.length);
+    });
+  });
+}
+const getUserGameID = (userID, guildID) => {
+  return new Promise((resolve, reject) => {
+    con.query(`SELECT * FROM currentgames WHERE userID="${userID}" AND guildID="${guildID}"`, (err, results) => {
       if(results.length == 0) return reject();
       resolve(results[0].gameID);
     });
@@ -35,8 +51,8 @@ const getUserGameID = (userID) => {
 }
 const addGuess = (userID, guess, guildID) => { //adds guess and returns all guesses
   return new Promise((resolve, reject) => {
-    con.query(`INSERT INTO guesses VALUES (null, "${userID}", "${guess}")`);
-    con.query(`SELECT guess FROM guesses WHERE userID="${userID}"`, (err, results) => {
+    con.query(`INSERT INTO guesses VALUES (null, "${guildID}", "${userID}", "${guess}")`);
+    con.query(`SELECT guess FROM guesses WHERE guildID="${guildID}" AND userID="${userID}"`, (err, results) => {
       var guesses = [];
       results.forEach(result => {
         guesses.push(result.guess);
@@ -54,10 +70,10 @@ const addGuess = (userID, guess, guildID) => { //adds guess and returns all gues
     });
   });
 }
-const clearGameData = (userID) => {
+const clearGameData = (userID, guildID) => {
   return new Promise((resolve, reject) => {
-    con.query(`DELETE FROM games WHERE userID="${userID}"`);
-    con.query(`DELETE FROM guesses WHERE userID="${userID}"`);
+    con.query(`DELETE FROM currentgames WHERE userID="${userID}" AND guildID="${guildID}"`);
+    con.query(`DELETE FROM guesses WHERE userID="${userID}" AND guildID="${guildID}" AND guildID="${guildID}"`);
     resolve();
   });
 }
@@ -146,6 +162,8 @@ const getTopPlayers = (type, guildID) => {
 
 module.exports = {
   saveID,
+  checkPlayed,
+  getAmountPlayed,
   getUserGameID,
   addGuess,
   clearGameData,
