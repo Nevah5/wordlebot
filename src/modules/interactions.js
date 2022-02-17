@@ -68,8 +68,9 @@ exports.serverstats = new MessageActionRow()
   .setPlaceholder('Select SORT BY')
   .addOptions([
     {label: 'Winrate', description: 'Orders the top players by winrate.', value: 'winrate'},
+    {label: 'Games Won', description: 'Orders the top players by games won.', value: 'won'},
+    {label: 'Games Started', description: 'Orders the top players by games started.', value: 'started'},
     {label: 'Games Finished', description: 'Orders the top players by games finished.', value: 'finished'},
-    {label: 'Number Guesses', description: 'Orders the top players by number guesses.', value: 'guesses'},
-    {label: 'Games Started', description: 'Orders the top players by games started.', value: 'started'}
+    {label: 'Number Guesses', description: 'Orders the top players by number guesses.', value: 'guesses'}
   ])
 )

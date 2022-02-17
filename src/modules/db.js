@@ -134,6 +134,14 @@ const getTopPlayers = (type, guildID) => {
           resolve(results);
         }
       );
+    }else if(type == "won"){
+      con.query(
+        `SELECT * FROM rankings WHERE guildID="${guildID}" ORDER BY won DESC LIMIT 5`,
+        (err, results) => {
+        if(results.length == 0) return resolve("nodata");
+          resolve(results);
+        }
+      );
     }
   })
 }
