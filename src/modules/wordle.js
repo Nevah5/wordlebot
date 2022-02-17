@@ -35,16 +35,19 @@ guess = async (guess, interaction, playNewBtn) => {
   const addGuess = await db.addGuess(interaction.user.id, guess, interaction.guild.id);
   var guesses = addGuess[0];
   var lastGuess = addGuess[1];
-  var guessesColors = [];
+  var guessesDisplay = [];
   var letters = {
     "q": 1, "w": 1, "e": 1, "r": 1, "t": 1, "y": 1, "u": 1, "i": 1, "o": 1, "p": 1,
     "a": 1, "s": 1, "d": 1, "f": 1, "g": 1, "h": 1, "j": 1, "k": 1, "l": 1,
     "z": 1, "x": 1, "c": 1, "v": 1, "b": 1, "n": 1, "m": 1
   };
+  let guessesAmount = 0;
   // --- Generate colors from each guess user has made --- \\
   guesses.forEach(eachGuess => {
+    guessesAmount++;
     const split = eachGuess.toLowerCase().split("");
     var chars = {};
+    var wordEmojis = "";
     wordSplit.forEach(element => {
       if(chars[element] == null){
         chars[element] = 1;
@@ -53,7 +56,9 @@ guess = async (guess, interaction, playNewBtn) => {
       }
     });
     var guessColors = [];
+    //create colors
     split.forEach((element, index) => {
+      wordEmojis += ":regional_indicator_"+element+":";
       //search for right input characters 🟩
       split.forEach((element2, index2) => {
         if(wordSplit[index2] == element2 && chars[element2] != 0){
@@ -82,16 +87,17 @@ guess = async (guess, interaction, playNewBtn) => {
     guessColors.forEach(element => {
       finalColors += element;
     });
-    guessesColors.push(finalColors);
+    guessesDisplay.push(finalColors);
+    guessesDisplay.push(wordEmojis);
   });
   // --- Check if user guessed and send curresponding embed --- \\
-  if(!lastGuess && guessesColors[guessesColors.length - 1] != "🟩🟩🟩🟩🟩"){
-    interaction.reply({embeds: [embeds.guess(wordID, guesses, guessesColors, interaction.user.id, letters)], ephemeral: true});
+  if(!lastGuess && guessesDisplay[guessesDisplay.length - 2] != "🟩🟩🟩🟩🟩"){
+    interaction.reply({embeds: [embeds.guess(wordID, guessesAmount, guessesDisplay, interaction.user.id, letters)], ephemeral: true});
   }else{
     await db.clearGameData(interaction.user.id);
-    await db.saveStats(interaction.user.id, guessesColors.length, guessesColors[guessesColors.length - 1] == "🟩🟩🟩🟩🟩", interaction.guild.id);
-    interaction.reply({embeds: [embeds.lastGuess(wordID, guesses, guessesColors, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
-    interaction.channel.send({embeds: [embeds.result(wordID, guessesColors, interaction.user)]});
+    await db.saveStats(interaction.user.id, guessesDisplay.length, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
+    interaction.reply({embeds: [embeds.lastGuess(wordID, guessesDisplay, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
+    interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)]});
   }
 }
 

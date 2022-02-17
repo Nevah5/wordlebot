@@ -1,4 +1,8 @@
 # Changelog (Beta Versions)
+## [Release Beta 1.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.1) - 17.02.2022
+### Changed
+- Guessing embed to display word as emojis for better overview
+
 ## [Beta 1.0.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.0.1) - 17.02.2022
 ### Changed
 - Commands to now be global

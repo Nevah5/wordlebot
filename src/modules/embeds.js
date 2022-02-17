@@ -29,17 +29,11 @@ const getKeyboard = (letters) => {
   keyboard += "\n**~~-------------------------------------------~~**";
   return keyboard;
 }
-const guess = (id, playerGuesses, playerHistory, playerID, letters) => {
+const guess = (id, guessesAmount, playerBoard, playerID, letters) => {
   const keyboard = getKeyboard(letters);
-  var left = 6;
-  var guesses = "";
-  playerGuesses.forEach((guess, index) => {
-    left -= 1;
-    let num = index + 1;
-    guesses += num + ". " + guess.toUpperCase() + "\n";
-  });
+  var left = 6 - guessesAmount;
   var board = "";
-  playerHistory.forEach(playerGuess => {
+  playerBoard.forEach(playerGuess => {
     board += playerGuess + "\n";
   });
   var guessesText = left == 1 ? "guess" : "guesses";
@@ -49,27 +43,21 @@ const guess = (id, playerGuesses, playerHistory, playerID, letters) => {
   .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
-    {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Results "+(6-left)+"/6", value: board, inline: false},
+    {name: "Guesses "+guessesAmount+"/6", value: board, inline: false},
     {name: "Possible letters:", value: keyboard, inline: false}
   )
   .setFooter({text: left + " "+ guessesText + " left, guess with /guess <guess>"})
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const lastGuess = (id, playerGuesses, playerHistory, playerID, word, letters) => {
+const lastGuess = (id, playerBoard, playerID, word, letters) => {
   const keyboard = getKeyboard(letters);
-  var guesses = "";
-  playerGuesses.forEach((guess, index) => {
-    let num = index + 1;
-    guesses += num + ". " + guess.toUpperCase() + "\n";
-  });
   var board = "";
-  playerHistory.forEach(playerGuess => {
+  playerBoard.forEach(playerGuess => {
     board += playerGuess + "\n";
   });
   var infoText = "**You didn't make it. The word was: ||"+word.toUpperCase()+"||.**";
-  if(board.endsWith("🟩🟩🟩🟩🟩\n")){
+  if(playerBoard[playerBoard.length - 2] == "🟩🟩🟩🟩🟩"){
     infoText = "**Congratulations! You made it!**";
   }
   return new MessageEmbed()
@@ -78,21 +66,23 @@ const lastGuess = (id, playerGuesses, playerHistory, playerID, word, letters) =>
   .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .addFields(
-    {name: "Your guesses:", value: guesses, inline: false},
-    {name: "Results "+playerHistory.length+"/6", value: board + "\n"+infoText, inline: false},
+    {name: "Guesses "+(playerBoard.length / 2)+"/6", value: board + "\n"+infoText, inline: false},
     {name: "Possible letters:", value: keyboard, inline: false}
   )
   .setFooter({text: "Start a new game with /new <id (optional)>"})
   .setColor("#6AAA64")
   .setTimestamp();
 }
-const result = (id, playerHistory, player) => {
+const result = (id, playerBoard, player) => {
   var board = "";
-  playerHistory.forEach(playerGuess => {
-    board += playerGuess + "\n";
+  playerBoard.forEach((playerGuess, index) => {
+    //delete word guess out of array
+    if(index % 2 == 0){
+      board += playerGuess + "\n";
+    }
   });
-  var outOf = playerHistory.length;
-  if(!board.endsWith("🟩🟩🟩🟩🟩\n")){
+  var outOf = playerBoard.length / 2;
+  if(playerBoard[playerBoard.length - 2] != "🟩🟩🟩🟩🟩"){
     outOf = "X";
   }
   return new MessageEmbed()
