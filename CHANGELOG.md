@@ -2,6 +2,7 @@
 ## [Version 1.0](https://github.com/Nevah5/wordlebot/releases/tag/v1.0) - 17.02.2022
 ### Added
 - Port config into `.env.example`
+- Description to configs
 
 ### Fixed
 - Bot token not working on linux
