@@ -169,7 +169,8 @@ const topServer = (server, data, sort) => {
     "winrate": "Winrate",
     "finished": "Games finished",
     "guesses": "Number guesses",
-    "started": "Games started"
+    "started": "Games started",
+    "won": "Games won"
   };
   var embed = new MessageEmbed()
   .setTitle(`Top players of ${server.name}`)
@@ -183,7 +184,25 @@ const topServer = (server, data, sort) => {
   data.forEach((element, index) => {
     let end = ["st", "nd", "rd", "th", "th"];
     let winrate = (Math.floor((100 / element.started * element.won) * 100) / 100) + "%";
-    let value = `<@${element.userID}>\nWinrate: ${winrate}\nGames started: ${element.started}\nGames won: ${element.won}\nGames finished: ${element.finished}\n Number guesses: ${element.numGuesses}`;
+    let stats = {
+      "winrate": `${sortInfo.winrate}: ${winrate}`,
+      "won": `${sortInfo.won}: ${element.won}`,
+      "started": `${sortInfo.started}: ${element.started}`,
+      "finished": `${sortInfo.finished}: ${element.finished}`,
+      "guesses": `${sortInfo.guesses}: ${element.numGuesses}`
+    };
+    if(sort == "winrate"){
+      stats.winrate = `**${sortInfo.winrate}: ${winrate}**`;
+    }else if(sort == "won"){
+      stats.won = `**${sortInfo.won}: ${element.won}**`
+    }else if(sort == "finished"){
+      stats.finished = `**${sortInfo.finished}: ${element.finished}**`;
+    }else if(sort == "guesses"){
+      stats.guesses = `**${sortInfo.guesses}: ${element.numGuesses}**`;
+    }else if(sort == "started"){
+      stats.started = `**${sortInfo.started}: ${element.started}**`;
+    }
+    let value = `<@${element.userID}>\n${stats.winrate}\n${stats.won}\n${stats.started}\n${stats.finished}\n${stats.guesses}`;
     embed.addField("➡️ " + (index + 1) + end[index] + " Place", value, false);
   });
   return embed;
