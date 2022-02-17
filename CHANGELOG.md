@@ -1,5 +1,5 @@
 # Changelog (Beta Versions)
-## [Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.3) - 17.02.2022
+## [Release Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.3) - 17.02.2022
 ### Changed
 - Button label for new random wordle
 
