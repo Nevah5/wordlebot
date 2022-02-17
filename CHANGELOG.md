@@ -1,4 +1,8 @@
 # Changelog (Beta Versions)
+## [Beta 1.2.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.1) - 17.02.2022
+### Changed
+- Wordle game words
+
 ## [Beta 1.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.2) - 17.02.2022
 ### Added
 - Daily wordle challenge
