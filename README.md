@@ -1,5 +1,4 @@
 <br>
-<h3 align="center" style="color: red; font-weight: 1000;">THIS BOT IS UNDER DEVELOPMENT</h3>
 <br>
 <p align="center">
   <img src="./src/images/logo_slim.png" width="150px"></img><br>
