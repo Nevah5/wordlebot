@@ -3,7 +3,7 @@ const { MessageSelectMenu, MessageActionRow, MessageButton } = require("discord.
 const wordle = require("./wordle.js");
 const embeds = require('./embeds.js');
 
-exports.interactions = (client, interaction) => {
+exports.interactions = async (client, interaction) => {
   if(interaction.isCommand()) {
     const { commandName, options } = interaction;
 
@@ -42,6 +42,11 @@ exports.interactions = (client, interaction) => {
       }else{
         wordle.newGame(id, interaction);
       }
+    }else if(interaction.customId == 'confirmnew'){
+      const id = interaction.message.embeds[0].footer.text.split("(#")[1].split(")")[0];
+      wordle.newGame(id, interaction, true);
+    }else if(interaction.customId == 'confirmnewdaily'){
+      wordle.daily(interaction, true);
     }
   }else if(interaction.isSelectMenu()){
     if(interaction.customId == "stattimeline"){
@@ -93,4 +98,19 @@ exports.playThisWordle = new MessageActionRow()
   .setCustomId('playthiswordle')
   .setLabel("Play this wordle")
   .setStyle('SUCCESS')
+)
+
+exports.confirmStartNew = new MessageActionRow()
+.addComponents(
+  new MessageButton()
+  .setCustomId('confirmnew')
+  .setLabel('Continue and start a new game!')
+  .setStyle('DANGER')
+)
+exports.confirmStartNewDaily = new MessageActionRow()
+.addComponents(
+  new MessageButton()
+  .setCustomId('confirmnewdaily')
+  .setLabel('Continue and start a new game!')
+  .setStyle('DANGER')
 )

@@ -230,6 +230,17 @@ const help = _ => {
   .setFooter({text: "Please DM me if you find any bugs."})
   .setColor("#6AAA64");
 }
+const gameongoing = (id) => {
+  const idtext = id != null ? ` (#${id})` : ``;
+  return new MessageEmbed()
+  .setTitle("Careful!")
+  .setDescription("You already have a game ongoing!\nIf you start a new one, you cant play this one again.\nDo you want to continue?")
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setFooter({text: "Click the button below to start a new game."+idtext})
+  .setTimestamp()
+  .setColor("#F72F2F");
+}
 module.exports = {
   error,
   guess,
@@ -239,5 +250,6 @@ module.exports = {
   result,
   stats,
   topServer,
-  help
+  help,
+  gameongoing
 };

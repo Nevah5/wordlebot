@@ -8,15 +8,24 @@ getWord = (id) => {
   return gameWords[id];
 }
 
-newGame = async (id, interaction) => {
+newGame = async (id, interaction, update = false) => {
+  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing(id)], components: [interactions.confirmStartNew], ephemeral: true});
   const dailyID = getDailyID();
   if(id != null){
     // --- Test if user inputted invalid id --- \\
-    if(id > dailyID || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+dailyID+"]")], ephemeral: true});
+    if(!update){
+      if(id > dailyID || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+dailyID+"]")], ephemeral: true});
+    }else{
+      if(id > dailyID || id < 1) return interaction.update({embeds: [embeds.error("This ID is invalid. [1-"+dailyID+"]")], components: [], ephemeral: true});
+    }
   }else{
     //generate non played id
     if(await db.getAmountPlayed(interaction.user.id, interaction.guild.id) >= dailyID){
-      return interaction.reply({embeds: [embeds.error("You have already played every wordle. Amazing! Please come back later for more.")], ephemeral: true});
+      if(!update){
+        return interaction.reply({embeds: [embeds.error("You have already played every wordle. Amazing! Please come back later for more.")], ephemeral: true});
+      }else{
+        return interaction.update({embeds: [embeds.error("You have already played every wordle. Amazing! Please come back later for more.")], components: [], ephemeral: true});
+      }
     }
     do{
       id = Math.floor(Math.random() * (dailyID + 1));
@@ -24,11 +33,19 @@ newGame = async (id, interaction) => {
   }
   //check if user hasnt played this id yet
   if(await db.checkPlayed(interaction.user.id, interaction.guild.id, id)){
-    return interaction.reply({embeds: [embeds.error("You can't play this wordle again!")], ephemeral: true});
+    if(!update){
+      return interaction.reply({embeds: [embeds.error("You can't play this wordle again!")], ephemeral: true});
+    }else{
+      return interaction.update({embeds: [embeds.error("You can't play this wordle again!")], components: [], ephemeral: true});
+    }
   }
   await db.saveID(interaction.user.id, id, interaction.guild.id);
   await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
-  interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
+  if(!update){
+    interaction.reply({embeds: [embeds.newGame(id, interaction.user.id)], ephemeral: true});
+  }else{
+    interaction.update({embeds: [embeds.newGame(id, interaction.user.id)], components: [], ephemeral: true});
+  }
 }
 
 guess = async (guess, interaction, playNewBtn) => {
@@ -195,17 +212,26 @@ getDailyID = () => {
   return dailyID;
 }
 
-daily = async (interaction) => {
+daily = async (interaction, update = false) => {
   const dailyID = getDailyID();
+  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing(dailyID)], components: [interactions.confirmStartNewDaily], ephemeral: true});
   //check if user hasnt played it yet
   var today = new Date();
   var tomorrowUnix = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0, 0);
   tomorrowUnix = tomorrowUnix / 1000;
-  if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.reply({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], ephemeral: true});
+  if(!update){
+    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.reply({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], ephemeral: true});
+  }else{
+    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.update({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], components: [], ephemeral: true});
+  }
   //save the game & stats
   await db.saveID(interaction.user.id, dailyID, interaction.guild.id);
   await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
-  interaction.reply({embeds: [embeds.daily(dailyID, interaction.user.id)], ephemeral: true});
+  if(!update){
+    interaction.reply({embeds: [embeds.daily(dailyID, interaction.user.id)], ephemeral: true});
+  }else{
+    interaction.update({embeds: [embeds.daily(dailyID, interaction.user.id)], components: [], ephemeral: true});
+  }
 }
 
 module.exports = {

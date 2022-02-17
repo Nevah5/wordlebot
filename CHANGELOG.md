@@ -2,6 +2,7 @@
 ## [Beta 1.2.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.2) - 17.02.2022
 ### Added
 - Help embed and command
+- Confirm button to start game if already one ongoing
 
 ### Fixed
 - /daily command not working

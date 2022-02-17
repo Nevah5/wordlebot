@@ -11,6 +11,13 @@ var con = mysql.createConnection({
 });
 con.connect();
 
+const checkOngoing = (userID, guildID) => {
+  return new Promise((resolve, reject) => {
+    con.query(`SELECT * FROM currentgames WHERE guildID="${guildID}" AND userID="${userID}"`, (err, results) => {
+      resolve(results.length > 0);
+    });
+  });
+}
 const saveID = (userID, id, guildID) => {
   return new Promise((resolve) => {
     // --- START NEW GAME --- \\
@@ -161,6 +168,7 @@ const getTopPlayers = (type, guildID) => {
 }
 
 module.exports = {
+  checkOngoing,
   saveID,
   checkPlayed,
   getAmountPlayed,
