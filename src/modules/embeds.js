@@ -161,7 +161,7 @@ const stats = (id, avatarURL, username, data) => {
     }
   )
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
-  .setFooter({text: "See other users stats with /stats @user"})
+  .setFooter({text: "See other users stats with /stats user"})
   .setColor("#6AAA64")
   .setTimestamp();
 }

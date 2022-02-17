@@ -6,6 +6,7 @@
 ### Fixed
 - Bug where stats wouldn't count right
 - Crash when user has ongoing game and starts random game
+- Typos in embeds
 
 ## [Beta 1.2.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.2) - 17.02.2022
 ### Added

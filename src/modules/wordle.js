@@ -220,9 +220,9 @@ daily = async (interaction, update = false) => {
   var tomorrowUnix = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0, 0);
   tomorrowUnix = tomorrowUnix / 1000;
   if(!update){
-    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.reply({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], ephemeral: true});
+    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.reply({embeds: [embeds.error(`You have already played this wordle.\nPlease come back <t:${tomorrowUnix}:R>`)], ephemeral: true});
   }else{
-    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.update({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], components: [], ephemeral: true});
+    if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.update({embeds: [embeds.error(`You have already played this wordle.\nPlease come back <t:${tomorrowUnix}:R>`)], components: [], ephemeral: true});
   }
   //save the game & stats
   await db.saveID(interaction.user.id, dailyID, interaction.guild.id);
