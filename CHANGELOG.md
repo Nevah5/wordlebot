@@ -4,6 +4,9 @@
 - Installation guide to now explain database setup
 - Invite link
 
+### Fixed
+- Server stats on finished games not increasing
+
 
 ## [Release Beta 1.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.1) - 17.02.2022
 ### Changed

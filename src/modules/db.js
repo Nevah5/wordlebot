@@ -73,7 +73,7 @@ const saveStats = (userID, numGuesses, hasFinished, guildID) => {
         if(numGuesses != -2){
           const hasWon = hasFinished ? 1 : 0;
           const won = results[0].won + hasWon;
-          const finished = numGuesses == -1 ? results[0].finished + 1 : 0;
+          const finished = results[0].finished + 1;
           con.query(`UPDATE rankings SET won=${won}, finished=${finished} WHERE userID="${userID}" AND guildID="${guildID}"`);
         }
       }
