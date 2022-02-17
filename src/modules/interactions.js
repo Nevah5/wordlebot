@@ -27,6 +27,8 @@ exports.interactions = (client, interaction) => {
       }else if(options.getSubcommand() == 'server'){
         wordle.topServer(interaction);
       }
+    }else if(commandName === 'daily'){
+      wordle.daily(interaction);
     }
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){

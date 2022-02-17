@@ -100,11 +100,21 @@ const result = (id, playerBoard, player) => {
 const newGame = (id, playerID) => {
   return new MessageEmbed()
   .setTitle("Wordle #"+id)
-  .setDescription("<@"+playerID+">\nYou successfully started a new game.\n Please start guessing with /guess <guess>.")
+  .setDescription("<@"+playerID+">\nYou successfully started a new game.\nPlease start guessing with /guess.")
   .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
   .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
   .setFooter({text: "6 guesses left..."})
   .setColor("#6AAA64")
+  .setTimestamp();
+}
+const daily = (id, playerID) => {
+  return new MessageEmbed()
+  .setTitle("Daily Wordle #"+id)
+  .setDescription("<@"+playerID+">\nYou successfully started the daily wordle.\nPlease start guessing with /guess.")
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setFooter({text: "6 guesses left..."})
+  .setColor("#5865F2")
   .setTimestamp();
 }
 const stats = (id, avatarURL, username, data) => {
@@ -205,6 +215,7 @@ module.exports = {
   guess,
   lastGuess,
   newGame,
+  daily,
   result,
   stats,
   topServer

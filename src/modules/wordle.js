@@ -2,22 +2,24 @@ const { words, gameWords } = require("./words");
 const embeds = require("./embeds");
 const db = require('./db.js');
 const interactions = require("./interactions.js");
+const { DATE, NEWDATE } = require("mysql/lib/protocol/constants/types");
 
 getWord = (id) => {
   return gameWords[id];
 }
 
 newGame = async (id, interaction) => {
+  const dailyID = getDailyID();
   if(id != null){
     // --- Test if user inputted invalid id --- \\
-    if(id > gameWords.length || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+gameWords.length+"]")], ephemeral: true});
+    if(id > dailyID || id < 1) return interaction.reply({embeds: [embeds.error("This ID is invalid. [1-"+dailyID+"]")], ephemeral: true});
   }else{
     //generate non played id
-    if(await db.getAmountPlayed() == gameWords.length){
+    if(await db.getAmountPlayed(interaction.user.id, interaction.guild.id) >= dailyID){
       return interaction.reply({embeds: [embeds.error("You have already played every wordle. Amazing! Please come back later for more.")], ephemeral: true});
     }
     do{
-      id = Math.floor(Math.random() * (gameWords.length - 1));
+      id = Math.floor(Math.random() * (dailyID + 1));
     }while(!await db.checkPlayed(interaction.user.id, interaction.guild.id, id));
   }
   //check if user hasnt played this id yet
@@ -187,9 +189,29 @@ topServer = async (interaction) => {
   interaction.update({embeds: [embeds.topServer(server, data, type)], components: [interactions.serverstats]})
 }
 
+getDailyID = () => {
+  const firstDaily = new Date('2022-01-01');
+  const dailyID = Math.round((Date.now() - firstDaily) / (24*60*60*1000));
+  return dailyID;
+}
+
+daily = async (interaction) => {
+  const dailyID = getDailyID();
+  //check if user hasnt played it yet
+  var today = new Date();
+  var tomorrowUnix = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0, 0);
+  tomorrowUnix = tomorrowUnix / 1000;
+  if(await db.checkPlayed(interaction.user.id, interaction.guild.id, dailyID)) return interaction.reply({embeds: [embeds.error(`You have already played this wordle.\nPlease come back in <t:${tomorrowUnix}:R>`)], ephemeral: true});
+  //save the game & stats
+  await db.saveID(interaction.user.id, dailyID, interaction.guild.id);
+  await db.saveStats(interaction.user.id, -2, true, interaction.guild.id);
+  interaction.reply({embeds: [embeds.daily(id, interaction.user.id)], ephemeral: true});
+}
+
 module.exports = {
   newGame,
   guess,
   stats,
-  topServer
+  topServer,
+  daily
 };
