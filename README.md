@@ -31,8 +31,12 @@ For the project you need to have following things (installed):
 3. run `npm install`
 4. wait for the installation to complete
 5. rename the `.env.example` file to `.env`
-5. replace "YOUR_TOKEN_HERE" with your token in the renamed `.env` file
-6. run `node .` in the console
+6. replace "YOUR_TOKEN_HERE" with your token in the renamed `.env` file
+7. setup a mariaDB database somewhere with access
+8. create a database with the `image.sql` file
+9. replace the database access details in `.env`
+10. open a console/terminal in the project folder
+11. run `node .` in the console/terminal
 
 
 [Node.js]: https://nodejs.org/en/download/
