@@ -1,6 +1,7 @@
 const { MessageSelectMenu, MessageActionRow, MessageButton } = require("discord.js");
 
 const wordle = require("./wordle.js");
+const embeds = require('./embeds.js');
 
 exports.interactions = (client, interaction) => {
   if(interaction.isCommand()) {
@@ -30,6 +31,13 @@ exports.interactions = (client, interaction) => {
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){
       wordle.newGame(null, interaction);
+    }else if(interaction.customId == "playthiswordle"){
+      let id = interaction.message.embeds[0].title.split("#")[1];
+      if(interaction.message.embeds[0].description.split("<@")[1].split(">")[0] == interaction.user.id){
+        interaction.reply({embeds: [embeds.error("You cannot play this wordle again!")], ephemeral: true})
+      }else{
+        wordle.newGame(id, interaction);
+      }
     }
   }else if(interaction.isSelectMenu()){
     if(interaction.customId == "stattimeline"){
@@ -73,4 +81,12 @@ exports.serverstats = new MessageActionRow()
     {label: 'Games Finished', description: 'Orders the top players by games finished.', value: 'finished'},
     {label: 'Number Guesses', description: 'Orders the top players by number guesses.', value: 'guesses'}
   ])
+)
+
+exports.playThisWordle = new MessageActionRow()
+.addComponents(
+  new MessageButton()
+  .setCustomId('playthiswordle')
+  .setLabel("Play this wordle")
+  .setStyle('SUCCESS')
 )

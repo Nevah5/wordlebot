@@ -1,4 +1,8 @@
 # Changelog (Beta Versions)
+## [Beta 1.1.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.1.2) - 17.02.2022
+### Added
+- Play this wordle button on results for other players
+
 ## [Beta 1.1.1](https://github.com/Nevah5/wordlebot/releases/tag/b1.1.1) - 17.02.2022
 ### Added
 - Discord timestampts to user stats

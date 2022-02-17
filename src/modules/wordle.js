@@ -97,7 +97,7 @@ guess = async (guess, interaction, playNewBtn) => {
     await db.clearGameData(interaction.user.id);
     await db.saveStats(interaction.user.id, guessesDisplay.length, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guessesDisplay, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
-    interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)]});
+    interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)], components: [interactions.playThisWordle]});
   }
 }
 
