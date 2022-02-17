@@ -43,7 +43,10 @@ exports.interactions = async (client, interaction) => {
         wordle.newGame(id, interaction);
       }
     }else if(interaction.customId == 'confirmnew'){
-      const id = interaction.message.embeds[0].footer.text.split("(#")[1].split(")")[0];
+      var id = null;
+      if(/([(]{1}[#]{1}[0-9]*[)]{1})/.test(interaction.message.embeds[0].footer.text)){
+        id = interaction.message.embeds[0].footer.text.split("(#")[1].split(")")[0];
+      }
       wordle.newGame(id, interaction, true);
     }else if(interaction.customId == 'confirmnewdaily'){
       wordle.daily(interaction, true);

@@ -1,10 +1,11 @@
 # Changelog (Beta Versions)
-## [Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.3) - 17.02.2022
+## [Beta 1.3](https://github.com/Nevah5/wordlebot/releases/tag/b1.3) - 17.02.2022
 ### Changed
 - Button label for new random wordle
 
 ### Fixed
 - Bug where stats wouldn't count right
+- Crash when user has ongoing game and starts random game
 
 ## [Beta 1.2.2](https://github.com/Nevah5/wordlebot/releases/tag/b1.2.2) - 17.02.2022
 ### Added
