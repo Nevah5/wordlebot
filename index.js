@@ -93,6 +93,11 @@ client.on('ready', _ => {
     name: 'daily',
     description: 'Starts a the daily game.',
   });
+  // --- /help --- \\
+  commands.create({
+    name: 'help',
+    description: 'Get more info about the game/bot here.',
+  });
 });
 
 client.on('interactionCreate', async (interaction) => {

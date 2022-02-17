@@ -29,6 +29,8 @@ exports.interactions = (client, interaction) => {
       }
     }else if(commandName === 'daily'){
       wordle.daily(interaction);
+    }else if(commandName === 'help'){
+      interaction.reply({embeds: [embeds.help()], ephemeral: true});
     }
   }else if(interaction.isButton()){
     if(interaction.customId == "playagain"){

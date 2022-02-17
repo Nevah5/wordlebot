@@ -209,7 +209,27 @@ const topServer = (server, data, sort) => {
   });
   return embed;
 }
-
+const help = _ => {
+  return new MessageEmbed()
+  .setTitle("Wordlebot Help")
+  .setDescription("This is a discord bot for the wordle game made by Nevah#0001.")
+  .addFields(
+    {
+      name: "Game instructions",
+      value: "Wordle is a game made by Josh Wardle in 2021. He made it for people to have something to play each day during the covid pandemic. The player has to guess a word and is given different colors as info, based on which letters are correct and which are not.\n\n🟩 - The letter is correct and in the correct position.\n🟨 - The letter is in the word, but not in the correct position.\n⬛ - The letter is not in the word.",
+      inline: false
+    },
+    {
+      name: "Commands",
+      value: "/new <(optional) id>\nTo start a new game, type /new with optionally a specific id.\n\n/guess <guess>\nIf you have started a new game, you can guess any 5 letter word.\n\n/daily\nThis command lets you play the word for today if you havent played it.\n\n/stats <user / server> <@user>\nThis command shows the stats of a specific player or the stats of the top 5 players in the server.",
+      inline: false
+    },
+  )
+  .setThumbnail("https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png")
+  .setAuthor({ name: "Wordlebot", iconURL: "https://raw.githubusercontent.com/Nevah5/wordlebot/main/src/images/logo.png", url: "https://github.com/nevah5/wordlebot"})
+  .setFooter({text: "Please DM me if you find any bugs."})
+  .setColor("#6AAA64");
+}
 module.exports = {
   error,
   guess,
@@ -218,5 +238,6 @@ module.exports = {
   daily,
   result,
   stats,
-  topServer
+  topServer,
+  help
 };
