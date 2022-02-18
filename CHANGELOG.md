@@ -1,4 +1,8 @@
 # Changelog
+## [Version 1.0.3](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.3) - 18.02.2022
+### Fixed
+- Game breaking bug
+
 ## [Version 1.0.2](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.2) - 18.02.2022
 ### Fixed
 - Guess words turning into flags on phone

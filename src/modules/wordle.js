@@ -120,11 +120,11 @@ guess = async (guess, interaction, playNewBtn) => {
     guessesDisplay.push(wordEmojis);
   });
   // --- Check if user guessed and send curresponding embed --- \\
-  if(!lastGuess && guessesDisplay[guessesDisplay.length - 2] != "🟩🟩🟩🟩🟩"){
+  if(!lastGuess && guessesDisplay[guessesDisplay.length - 2] != "🟩 🟩 🟩 🟩 🟩"){
     interaction.reply({embeds: [embeds.guess(wordID, guessesAmount, guessesDisplay, interaction.user.id, letters)], ephemeral: true});
   }else{
     await db.clearGameData(interaction.user.id, interaction.guild.id);
-    await db.saveStats(interaction.user.id, guessesDisplay.length / 2, guessesDisplay[guessesDisplay.length - 2] == "🟩🟩🟩🟩🟩", interaction.guild.id);
+    await db.saveStats(interaction.user.id, guessesDisplay.length / 2, guessesDisplay[guessesDisplay.length - 2] == "🟩 🟩 🟩 🟩 🟩", interaction.guild.id);
     interaction.reply({embeds: [embeds.lastGuess(wordID, guessesDisplay, interaction.user.id, getWord(wordID), letters)], ephemeral: true, components: [playNewBtn]});
     interaction.channel.send({embeds: [embeds.result(wordID, guessesDisplay, interaction.user)], components: [interactions.playThisWordle]});
   }
