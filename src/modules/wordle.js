@@ -9,7 +9,7 @@ getWord = (id) => {
 }
 
 newGame = async (id, interaction, update = false) => {
-  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing(id)], components: [interactions.confirmStartNew], ephemeral: true});
+  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing()], components: [interactions.confirmStartNew], ephemeral: true});
   const dailyID = getDailyID();
   if(id != null){
     // --- Test if user inputted invalid id --- \\
@@ -215,7 +215,7 @@ getDailyID = () => {
 
 daily = async (interaction, update = false) => {
   const dailyID = getDailyID();
-  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing(dailyID)], components: [interactions.confirmStartNewDaily], ephemeral: true});
+  if(!update && await db.checkOngoing(interaction.user.id, interaction.guild.id)) return interaction.reply({embeds: [embeds.gameongoing()], components: [interactions.confirmStartNewDaily], ephemeral: true});
   //check if user hasnt played it yet
   var today = new Date();
   var tomorrowUnix = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0, 0);
