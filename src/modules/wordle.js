@@ -87,29 +87,29 @@ guess = async (guess, interaction, playNewBtn) => {
     var guessColors = [];
     //create colors
     split.forEach((element, index) => {
-      wordEmojis += ":regional_indicator_"+element+":";
+      wordEmojis += ":regional_indicator_"+element+": ";
       //search for right input characters 🟩
       split.forEach((element2, index2) => {
         if(wordSplit[index2] == element2 && chars[element2] != 0){
-          guessColors[index2] = "🟩";
+          guessColors[index2] = "🟩 ";
           chars[element2] -= 1;
         }
       });
       //search for right character but wrong position 🟨
       split.forEach((element2, index2) => {
         if(wordSplit.includes(element2) && chars[element2] != 0){
-          guessColors[index2] = "🟨";
+          guessColors[index2] = "🟨 ";
         }
       });
       //replace all other wrong chars with ⬛
       guessColors.forEach((element2, index2) => {
         if(guessColors[index] == null){
-          guessColors[index] = "⬛";
+          guessColors[index] = "⬛ ";
         }
       });
       if(chars[element] == null){
         letters[element] = 0;
-        guessColors[index] = "⬛";
+        guessColors[index] = "⬛ ";
       }
     });
     var finalColors = "";
