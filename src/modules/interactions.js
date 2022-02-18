@@ -61,8 +61,8 @@ exports.interactions = async (client, interaction) => {
         interval = "1 DAY";
       }
       var userID = interaction.message.embeds[0].description.split('>')[0].split('<@')[1];
-      var user = client.users.fetch(userID);
-      wordle.stats(user.User, interaction, interval);
+      var user = await client.users.fetch(userID);
+      wordle.stats(user, interaction, interval);
     }else if(interaction.customId == "serverstat"){
       wordle.topServer(interaction);
     }

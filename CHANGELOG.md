@@ -1,4 +1,8 @@
 # Changelog
+## [Version 1.0.4](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.4) - 18.02.2022
+### Fixed
+- User stats bugs
+
 ## [Version 1.0.3](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.3) - 18.02.2022
 ### Fixed
 - Game breaking bug
