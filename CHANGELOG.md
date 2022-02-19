@@ -1,5 +1,5 @@
 # Changelog
-## [Version 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.5) - 18.02.2022
+## [Version 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.5) - 19.02.2022
 ### Changed
 - Results embed to not display spaces between colors
 
