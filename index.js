@@ -33,9 +33,9 @@ client.on('ready', _ => {
   });
 
   // --- Register commands --- \\
-  const guild = client.guilds.cache.get("908019966022942730");
-  var commands = guild.commands; // --- Guild commands --- \\
-  // var commands = client.application.commands; // --- Global commands --- \\
+  // const guild = client.guilds.cache.get("908019966022942730");
+  // var commands = guild.commands; // --- Guild commands --- \\
+  var commands = client.application.commands; // --- Global commands --- \\
   // --- /new --- \\
   commands.create({
     name: 'new',

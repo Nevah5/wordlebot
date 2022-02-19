@@ -78,7 +78,7 @@ const result = (id, playerBoard, player) => {
   playerBoard.forEach((playerGuess, index) => {
     //delete word guess out of array
     if(index % 2 == 0){
-      board += playerGuess + "\n";
+      board += playerGuess.replaceAll(' ', '') + "\n";
     }
   });
   var outOf = playerBoard.length / 2;
