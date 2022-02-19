@@ -146,9 +146,14 @@ const stats = (id, avatarURL, username, data) => {
   gameStats += "The winrate is calculated by the amount of games started, divided by the amount of games won.\n";
   return new MessageEmbed()
   .setTitle(username+"'s Statistics")
-  .setDescription("<@"+id+">\n\nFirst Game:\n<t:"+firstGame+">\n\nLast Game:\n<t:"+lastGame+">\n\n\n**"+statsFrom+" STATISTICS**")
+  .setDescription("<@"+id+">\n\n**STATISTICS ("+statsFrom+")**")
   .setThumbnail(avatarURL)
   .addFields(
+    {
+      name: "/ ----- **WORDLES** ----- \\",
+      value: "First Wordle:\n<t:"+firstGame+">\n\nLast Wordle:\n<t:"+lastGame+">\n",
+      inline: false
+    },
     {
       name: "/ ------ **GAMES** ------ \\",
       value: gameStats,

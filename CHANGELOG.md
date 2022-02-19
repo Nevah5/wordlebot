@@ -1,5 +1,8 @@
 # Changelog
 ## [Version 1.0.6](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.6) - 19.02.2022
+### Changed
+- Design of user stats embed
+
 ### Fixed
 - Bug on user stats if not defined would crash
 
