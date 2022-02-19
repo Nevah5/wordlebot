@@ -131,7 +131,6 @@ guess = async (guess, interaction, playNewBtn) => {
 }
 
 stats = async (user, interaction, update = null) => {
-  user = null ? interaction.user : user;
   if(user.bot) return interaction.reply({embeds: [embeds.error("You can not get the stats of a bot!")], ephemeral: true});
   const data = await db.getStats(user.id, update).catch(_ => { return null; });
   if(!data) return interaction.reply({embeds: [embeds.error("This user unfortunatly doesn't have any stats yet!")], ephemeral: true});

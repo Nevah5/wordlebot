@@ -22,7 +22,7 @@ exports.interactions = async (client, interaction) => {
       wordle.guess(guess, interaction, playNewBtn);
     }else if(commandName === 'stats'){
       if(options.getSubcommand() == 'user'){
-        let user = options.getUser('user');
+        let user = options.getUser('user') || interaction.user;
         wordle.stats(user, interaction);
       }else if(options.getSubcommand() == 'server'){
         wordle.topServer(interaction);

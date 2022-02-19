@@ -1,4 +1,8 @@
 # Changelog
+## [Version 1.0.6](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.6) - 19.02.2022
+### Fixed
+- Bug on user stats if not defined would crash
+
 ## [Version 1.0.5](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.5) - 19.02.2022
 ### Changed
 - Results embed to not display spaces between colors
