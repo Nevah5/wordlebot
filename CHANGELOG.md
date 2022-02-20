@@ -1,4 +1,8 @@
 # Changelog
+## [Version 1.0.7](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.7) - 20.02.2022
+### Fixed
+- Bug where game wouldn't stop if guessed correctly
+
 ## [Version 1.0.6](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.6) - 19.02.2022
 ### Changed
 - Design of user stats embed
