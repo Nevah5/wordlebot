@@ -51,7 +51,6 @@ newGame = async (id, interaction, update = false) => {
 guess = async (guess, interaction, playNewBtn) => {
   // --- Validate guess --- \\
   if(!/^[a-z]{5}$/.test(guess.toLowerCase())) return interaction.reply({embeds: [embeds.error("This guess is invalid. [Please use 5 letter words to guess]")], ephemeral: true});
-  if(!words.includes(guess) && !gameWords.includes(guess)) return interaction.reply({embeds: [embeds.error("Please guess a valid word.")], ephemeral: true});
 
   // --- Check if user has started game --- \\
   var wordID = await db.getUserGameID(interaction.user.id, interaction.guild.id).catch(_ => { return -1; });

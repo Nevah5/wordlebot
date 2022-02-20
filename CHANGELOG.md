@@ -1,4 +1,11 @@
 # Changelog
+## [Version 1.1](https://github.com/Nevah5/wordlebot/releases/tag/v1.1) - 20.02.2022
+### Removed
+- Valid words
+
+### Fixed
+- Results Embed
+
 ## [Version 1.0.7](https://github.com/Nevah5/wordlebot/releases/tag/v1.0.7) - 20.02.2022
 ### Fixed
 - Bug where game wouldn't stop if guessed correctly

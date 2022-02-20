@@ -82,7 +82,7 @@ const result = (id, playerBoard, player) => {
     }
   });
   var outOf = playerBoard.length / 2;
-  if(playerBoard[playerBoard.length - 2] != "🟩🟩🟩🟩🟩"){
+  if(playerBoard[playerBoard.length - 2] != "🟩 🟩 🟩 🟩 🟩 "){
     outOf = "X";
   }
   return new MessageEmbed()
