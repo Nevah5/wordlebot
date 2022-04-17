@@ -11,7 +11,7 @@
 
 [![](https://img.shields.io/badge/Invite-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=938399230614192169&permissions=2048&scope=bot%20applications.commands)
 
-### THIS BOT WILL PROBABLY SHUT DOWN SOON!
+### THIS BOT HAS SHUT DOWN
 
 </div>
 
